@@ -10,16 +10,17 @@
 <div class="container">
     <table class="table table-hover offer-table scroll" style="text-align: center; border-top:2px solid #ddd">
         <br>
-        <h2>상품 등록 리스트</h2>
+        <h2>내 구매 목록</h2>
         <br>
+
 
         <!--        목록 -->
         <thead>
         <tr>
             <th class="center-align col-1">No</th>
-            <th class="center-align col-5">상품명</th>
+            <th class="center-align col-3">사진</th>
+            <th class="center-align col-4">상품명</th>
             <th class="center-align col-2">상품가격</th>
-            <th class="center-align col-2">상품수량</th>
             <th class="center-align col-2">상세보기</th>
         </tr>
         </thead>
@@ -30,9 +31,9 @@
         {{#productList}}
             <tr class="offer-table">
                 <th scope="row">{{indexNumb}}</th>
+                <td>사진넣으셈</td>
                 <td>{{name}}</td>
                 <td class="price">{{price}}</td>
-                <td class="qty">{{qty}}</td>
                 <td>
                     <div class="new-create-button">
                         <form action="/product/{{id}}">

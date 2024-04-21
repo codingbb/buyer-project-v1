@@ -15,6 +15,20 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
+    @GetMapping("/product-list")
+    public String productList(HttpServletRequest request) {
+        List<ProductResponse.ListDTO> productList = productService.findAllList();
+        request.setAttribute("productList", productList);
+        return "/product/product-list";
+    }
+
+    @GetMapping("/buy-list")
+    public String buyList(HttpServletRequest request) {
+        List<ProductResponse.ListDTO> productList = productService.findAllList();
+        request.setAttribute("productList", productList);
+        return "/product/buy-list";
+    }
+
 
     //상품 삭제
     @PostMapping("/product/{id}/delete")
@@ -31,7 +45,7 @@ public class ProductController {
         List<ProductResponse.ListDTO> productList = productService.findAllList();
         request.setAttribute("productList", productList);
 
-        return "/product/list";
+        return "buy-list";
     }
 
     //상품 상세보기
