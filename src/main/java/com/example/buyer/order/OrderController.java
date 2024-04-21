@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class OrderController {
     private final OrderService orderService;
 
+    @GetMapping("/my-buy-form")
+    public String myBuyForm() {
+
+        return "/order/my-buy-form";
+    }
 
     @GetMapping("/order-form")
     public String orderForm() {
