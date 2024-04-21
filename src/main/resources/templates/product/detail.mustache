@@ -17,19 +17,66 @@
                 상품가격 : <input name="price" type="text" class="form-control" value="{{product.price}}" disabled>
             </div>
             <div class="mb-3 mt-3">
-                상품수량 : <input name="qty" type="text" class="form-control" value="{{product.qty}}" disabled>
+                <div>구매수량 : <span style="color: grey;">(재고 : {{product.qty}})</span></div>
+                <input name="qty" type="number" class="form-control" value="{{product.qty}}">
             </div>
 
             <div class="d-flex justify-content-center">
                 <a href="/product/{{id}}/update-form">
-                    <button type="submit" class="btn btn-primary mt-3">수정</button>
+                    <button type="submit" class="btn btn-primary mt-3">구매하기</button>
                 </a>
-                <form action="/product/{{id}}/delete" method="post">
-                    <button type="submit" class="btn btn-danger mt-3">삭제</button>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br>
+    <hr>
+    <div style="color: blue; text-align: center; font-size: 24px;">
+        상품후기
+    </div>
+
+    <br>
+    <!-- 댓글 -->
+    <div class="card mt-3">
+        <!-- 댓글등록 -->
+        <div class="card-body">
+            <form action="/reply/save" method="post">
+                <textarea class="form-control" rows="2" name="comment"
+                          placeholder="상품 후기를 작성해주세요. 비방 및 욕설 댓글은 삭제됩니다."></textarea>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-outline-primary mt-1">후기등록</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 댓글목록 -->
+        <div class="card-footer">
+            <b>후기</b>
+        </div>
+        <div class="list-group">
+            <!-- 댓글아이템 -->
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex">
+                    <div class="px-1 me-1 bg-primary text-white rounded">cos</div>
+                    <div>지는 법을 모르는</div>
+                </div>
+                <form action="/reply/1/delete" method="post">
+                    <button class="btn">🗑</button>
+                </form>
+            </div>
+            <!-- 댓글아이템 -->
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex">
+                    <div class="px-1 me-1 bg-primary text-white rounded">ssar</div>
+                    <div>최강 기아 타이거즈!</div>
+                </div>
+                <form action="/reply/1/delete" method="post">
+                    <button class="btn">🗑</button>
                 </form>
             </div>
         </div>
     </div>
+
 </div>
 
 {{> scripts/detail}}

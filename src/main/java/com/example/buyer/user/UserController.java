@@ -15,10 +15,22 @@ public class UserController {
         return "/user/join-form";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login-form")
     public String login() {
 
         return "/user/login";
+    }
+
+    @GetMapping("/update-form")
+    public String updateForm() {
+
+        return "/user/update-form";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+
+        return "redirect:/";
     }
 
 }
