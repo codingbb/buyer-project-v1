@@ -28,10 +28,10 @@ public class User {
     private String name;            //이름(성명)
     private String compName;            //기업명(성명)
 
+    private String compNum;           //사업자등록번호
+
     @Column(nullable = false)
     private String phone;           //전화번호
-
-    private String compNumb;           //사업자등록번호
 
     @Column(nullable = false)
     private LocalDate birth;    //생년월일(user) //설립일(comp)

@@ -45,8 +45,9 @@
         </ul>
 
         <!--        폼 시작 -->
-        <form action="/" method="post">
+        <form action="/comp-join" method="post">
             <div class="mb-3 mt-3 form-group">
+                <!--                role을 히든으로 폼에 담아서 주는걸..사용하려함  -->
                 <input type="hidden" name="role" value="2">
 
                 아이디 <input id="username" name="username" type="text" class="form-control" placeholder="아이디를 입력하세요">
@@ -56,24 +57,33 @@
 
             <!--            비밀번호 -->
             <div class="mb-3 mt-3 has-success form-group">
-                비밀번호 <input id="password" name="password" type="password" class="form-control" placeholder="비밀번호를 입력하세요">
+                비밀번호 <input id="password" name="password" type="password" class="form-control"
+                            placeholder="비밀번호를 입력하세요">
             </div>
 
             <div class="mb-3 mt-5 has-danger form-group">
-                비밀번호 확인 <input id="passwordCheck" name="passwordCheck" type="password" class="form-control" placeholder="비밀번호를 다시 입력하세요">
+                비밀번호 확인 <input id="passwordCheck" name="passwordCheck" type="password" class="form-control"
+                               placeholder="비밀번호를 다시 입력하세요">
                 <div class="alert" id="passCheck"></div>
             </div>
             <!--            비밀번호 끝-->
 
-            <!--            본명 -->
+            <!--            기업명  -->
             <div class="mb-3 mt-3 form-group">
-                기업명 <input id="name" name="name" type="text" class="form-control" placeholder="기업명을 입력하세요">
+                기업명 <input id="compName" name="compName" type="text" class="form-control" placeholder="기업명을 입력하세요">
             </div>
-            <!--  본명 끝 -->
+            <!--  기업명 끝 -->
+
+            <!--  대표자명 -->
+            <div class="mb-3 mt-5 form-group">
+                대표자명 <input id="name" name="name" type="text" class="form-control" placeholder="기업명을 입력하세요">
+            </div>
+            <!--  대표자명 끝 -->
 
             <!--  사업자등록번호 -->
             <div class="mb-3 mt-5 form-group">
-                사업자등록번호 <input id="compNumb" name="compNumb" type="text" class="form-control" placeholder="사업자등록번호를 입력하세요">
+                사업자등록번호 <input id="compNum" name="compNum" type="text" class="form-control"
+                               placeholder="사업자등록번호를 입력하세요">
             </div>
             <!--  사업자등록번호 -->
 
@@ -83,45 +93,51 @@
             </div>
             <!--  핸드폰 -->
 
-            <!--            생년월일 란. 한 번 받아보고 못받아오겠으면 기본으로 디자인 변경 -->
-            <div class="bir_wrap mb-3 mt-3 form-group">
-                <label class="form-label mt-4">설립일</label>
-                <div class="bir_yy">
-                		<span class="ps_box">
-                			<input type="text" class="form-control" id="year" placeholder="년(4자)" maxlength="4">
-                		</span>
-                </div>
-                <div class="bir_mm">
-                		<span class="ps_box focus">
-			                <select class="form-select" id="month">
-						        <option>월</option>
-						        <option>1</option>
-						        <option>2</option>
-						        <option>3</option>
-						        <option>4</option>
-						        <option>5</option>
-						        <option>6</option>
-						        <option>7</option>
-						        <option>8</option>
-						        <option>9</option>
-						        <option>10</option>
-						        <option>11</option>
-						        <option>12</option>
-						     </select>
-                		</span>
-                </div>
-                <div class="bir_dd">
-                		<span class="ps_box">
-                			<input type="text" class="form-control" id="day" placeholder="일" maxlength="2">
-                		</span>
-                </div>
+            <!--            설립연도 -->
+            <div class="mb-3 mt-5 form-group">
+                설립연도 <input id="birth" name="birth" type="date" class="form-control" placeholder="전화번호를 입력하세요">
             </div>
+            <!--            설립연도 -->
+
+            <!--            생년월일 란. 한 번 받아보고 못받아오겠으면 기본으로 디자인 변경 -->
+            <!--            <div class="bir_wrap mb-3 mt-3 form-group">-->
+            <!--                <label class="form-label mt-4">설립일</label>-->
+            <!--                <div class="bir_yy">-->
+            <!--                		<span class="ps_box">-->
+            <!--                			<input type="text" class="form-control" id="year" name="year" placeholder="년(4자)" maxlength="4">-->
+            <!--                		</span>-->
+            <!--                </div>-->
+            <!--                <div class="bir_mm">-->
+            <!--                		<span class="ps_box focus">-->
+            <!--			                <select class="form-select" id="month" name="month">-->
+            <!--						        <option>월</option>-->
+            <!--						        <option>1</option>-->
+            <!--						        <option>2</option>-->
+            <!--						        <option>3</option>-->
+            <!--						        <option>4</option>-->
+            <!--						        <option>5</option>-->
+            <!--						        <option>6</option>-->
+            <!--						        <option>7</option>-->
+            <!--						        <option>8</option>-->
+            <!--						        <option>9</option>-->
+            <!--						        <option>10</option>-->
+            <!--						        <option>11</option>-->
+            <!--						        <option>12</option>-->
+            <!--						     </select>-->
+            <!--                		</span>-->
+            <!--                </div>-->
+            <!--                <div class="bir_dd">-->
+            <!--                		<span class="ps_box">-->
+            <!--                			<input type="text" class="form-control" id="day" name="day" placeholder="일" maxlength="2">-->
+            <!--                		</span>-->
+            <!--                </div>-->
+            <!--            </div>-->
             <!--  생년월일 란. 한 번 받아보고 못받아오겠으면 기본으로 디자인 변경 -->
 
             <!--이메일-->
-<!--            <div class="mb-3 mt-5">-->
-<!--                이메일 <input id="email" name="email" type="email" class="form-control" placeholder="이메일을 입력하세요">-->
-<!--            </div>-->
+            <!--            <div class="mb-3 mt-5">-->
+            <!--                이메일 <input id="email" name="email" type="email" class="form-control" placeholder="이메일을 입력하세요">-->
+            <!--            </div>-->
             <!-- 이메일-->
 
             <!--주소-->
@@ -143,5 +159,5 @@
 
 </section>
 
-
+<div style="margin-bottom: 20%"></div>
 {{> layout/footer}}
