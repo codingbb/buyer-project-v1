@@ -5,6 +5,13 @@ import lombok.Data;
 
 public class ProductResponse {
 
+    //상품 목록 리스트 dto
+    @Data
+    public static class ListDTO {
+
+    }
+
+
     // 1. 상품 상세보기 화면을 위한 DTO
     @Data
     public static class DetailDTO {
@@ -15,23 +22,6 @@ public class ProductResponse {
 
         @Builder
         public DetailDTO(Product product) {
-            this.id = product.getId();
-            this.name = product.getName();
-            this.price = product.getPrice();
-            this.qty = product.getQty();
-        }
-    }
-
-    // 2. 상품 수정하기 화면을 위한 DTO
-    @Data
-    public static class UpdateDTO {
-        private Integer id;
-        private String name;
-        private Integer price;
-        private Integer qty;
-
-        @Builder
-        public UpdateDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
@@ -57,9 +47,9 @@ public class ProductResponse {
 
     }
 
-    //상품 리스트 dto
+    //내구매목록 dto
     @Data
-    public static class ListDTO {
+    public static class BuyListDTO {
         private Integer id;
         private String name;
         private Integer price;
@@ -67,7 +57,7 @@ public class ProductResponse {
         private Integer indexNumb;
 
         @Builder
-        public ListDTO(Product product) {
+        public BuyListDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
