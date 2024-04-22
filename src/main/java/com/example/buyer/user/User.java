@@ -23,30 +23,25 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(length = 15)
     private String name;            //이름(성명)
+    private String compName;            //기업명(성명)
 
     @Column(nullable = false)
     private String phone;           //전화번호
 
+    private String compNumb;           //사업자등록번호
+
     @Column(nullable = false)
-    private LocalDateTime birth;    //생년월일
+    private LocalDateTime birth;    //생년월일(user) //설립일(comp)
 
     @Column(nullable = false)
     private String address;
 
+    private Integer role;       //개인 - 1, 기업 - 2
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Builder
-    public User(Integer id, String username, String password, String name, String phone, LocalDateTime birth, String address, LocalDateTime createdAt) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.phone = phone;
-        this.birth = birth;
-        this.address = address;
-        this.createdAt = createdAt;
-    }
+
 }

@@ -40,13 +40,15 @@
     <div class="container py-4">
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item fs-4">
-                <a class="nav-link user fw-600">회원가입</a>
+                <a class="nav-link user fw-600">개인 회원가입</a>
             </li>
         </ul>
 
         <!--        폼 시작 -->
         <form action="/" method="post">
             <div class="mb-3 mt-3 form-group">
+                <input type="hidden" name="role" value="1">
+
                 아이디 <input id="username" name="username" type="text" class="form-control" placeholder="아이디를 입력하세요">
                 <!--                <button type="button" class="btn btn-primary mt-3" onclick="">중복확인</button>-->
                 <div class="alert" id="passCheck"></div>

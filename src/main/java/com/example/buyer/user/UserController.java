@@ -10,9 +10,15 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/join-form")
-    public String joinForm() {
+    public String userJoinForm() {
 
-        return "/user/join-form";
+        return "/user/user-join-form";
+    }
+
+    @GetMapping("/comp-join-form")
+    public String compJoinForm() {
+
+        return "/comp/comp-join-form";
     }
 
     @GetMapping("/login-form")
@@ -21,10 +27,16 @@ public class UserController {
         return "/user/login";
     }
 
-    @GetMapping("/update-form")
-    public String updateForm() {
+    @GetMapping("/user-update-form")
+    public String userUpdateForm() {
 
-        return "/user/update-form";
+        return "/user/user-update-form";
+    }
+
+    @GetMapping("/comp-update-form")
+    public String compUpdateForm() {
+
+        return "/comp/comp-update-form";
     }
 
     @GetMapping("/logout")
