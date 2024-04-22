@@ -12,6 +12,21 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    //로그인
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO requestDTO) {
+        User sessionUser = userService.login(requestDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/login-form")
+    public String loginForm() {
+
+        return "/user/login-form";
+    }
+
     //회원가입
     @PostMapping("/join")
     public String userJoin(UserRequest.JoinDTO requestDTO) {
@@ -23,12 +38,6 @@ public class UserController {
     public String userJoinForm() {
 
         return "/user/user-join-form";
-    }
-
-    @GetMapping("/login-form")
-    public String login() {
-
-        return "/user/login";
     }
 
     @GetMapping("/user-update-form")
