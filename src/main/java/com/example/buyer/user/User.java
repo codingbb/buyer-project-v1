@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -33,7 +34,7 @@ public class User {
     private String compNumb;           //사업자등록번호
 
     @Column(nullable = false)
-    private LocalDateTime birth;    //생년월일(user) //설립일(comp)
+    private LocalDate birth;    //생년월일(user) //설립일(comp)
 
     @Column(nullable = false)
     private String address;

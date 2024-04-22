@@ -1,24 +1,28 @@
 package com.example.buyer.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
 public class UserController {
     private final UserService userService;
+    private final HttpSession session;
 
-    @GetMapping("/join-form")
+    //회원가입
+    @PostMapping("/join")
+    public String userJoin(UserRequest.JoinDTO requestDTO) {
+        userService.save(requestDTO);
+        return "redirect:/";
+    }
+
+    @GetMapping("/user-join-form")
     public String userJoinForm() {
 
         return "/user/user-join-form";
-    }
-
-    @GetMapping("/comp-join-form")
-    public String compJoinForm() {
-
-        return "/comp/comp-join-form";
     }
 
     @GetMapping("/login-form")
@@ -33,15 +37,9 @@ public class UserController {
         return "/user/user-update-form";
     }
 
-    @GetMapping("/comp-update-form")
-    public String compUpdateForm() {
-
-        return "/comp/comp-update-form";
-    }
-
     @GetMapping("/logout")
     public String logout() {
-
+        session.invalidate();
         return "redirect:/";
     }
 
