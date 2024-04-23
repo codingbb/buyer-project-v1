@@ -8,7 +8,16 @@ public class ProductResponse {
     //상품 목록 리스트 dto
     @Data
     public static class ListDTO {
+        private Integer id;
+        private String name;
+        private Integer price;
 
+        @Builder
+        public ListDTO(Product product) {
+            this.id = product.getId();
+            this.name = product.getName();
+            this.price = product.getPrice();
+        }
     }
 
 

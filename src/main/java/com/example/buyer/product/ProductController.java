@@ -18,14 +18,16 @@ public class ProductController {
     //TODO: 이것부터 해야함! 상품 목록 보기
     @GetMapping("/product-list")
     public String productList(HttpServletRequest request) {
-
+        List<ProductResponse.ListDTO> productList = productService.findAllList();
+        request.setAttribute("productList", productList);
+        System.out.println(productList);
         return "/product/product-list";
     }
 
     //내 구매목록
     @GetMapping("/buy-list")
     public String buyList(HttpServletRequest request) {
-        List<ProductResponse.BuyListDTO> productList = productService.findAllList();
+        List<ProductResponse.BuyListDTO> productList = productService.findAllBuyList();
         request.setAttribute("productList", productList);
         return "/product/buy-list";
     }

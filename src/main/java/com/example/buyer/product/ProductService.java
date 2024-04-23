@@ -12,6 +12,14 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepo;
 
+    //상품 목록보기
+    public List<ProductResponse.ListDTO> findAllList() {
+        List<Product> productList = productRepo.findAll();
+
+        return productList.stream().map(product ->
+                new ProductResponse.ListDTO(product)).collect(Collectors.toList());
+    }
+
 
     //상품 상세보기
     public ProductResponse.DetailDTO findByIdDetail(Integer id) {
@@ -30,7 +38,7 @@ public class ProductService {
     }
 
     //상품 리스트 목록 보기
-    public List<ProductResponse.BuyListDTO> findAllList() {
+    public List<ProductResponse.BuyListDTO> findAllBuyList() {
         List<Product> productList = productRepo.findAll();
 
         //pk로 no 주니까 너무 지저분해져서 no용 필드를 새로 만들어줌
