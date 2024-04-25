@@ -4,33 +4,19 @@
     .card:hover {
         box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.14);
         transition: all .3s ease-in-out;
+    }
 
-        /* 이미지가 카드의 크기를 넘지 않도록 설정 */
-        .card img {
-            max-width: 100%; /* 이미지의 최대 너비를 카드의 너비에 맞춤 */
-            max-height: 100%; /* 이미지의 최대 높이를 카드의 높이에 맞춤 */
-            object-fit: cover; /* 이미지의 비율을 유지하면서, 빈 공간 없이 컨테이너를 채움 */
-        }
+    /* 이미지가 카드의 크기를 넘지 않도록 설정 */
+    .card img {
+        max-width: 100%; /* 이미지의 최대 너비를 카드의 너비에 맞춤 */
+        max-height: 100%; /* 이미지의 최대 높이를 카드의 높이에 맞춤 */
+        object-fit: cover; /* 이미지의 비율을 유지하면서, 빈 공간 없이 컨테이너를 채움 */
     }
 
 </style>
 
 <div class="container p-5">
-    <h2>추천 상품</h2>
-    <br>
-
-    <!-- 상품 검색 창 -->
-    <div class="search-wrap search-bg">
-        <div class="search-bg-opacity">
-            <form action="/" method="get" class="search-form d-flex align-items-center" id="search">
-                <input class="form-control me-2" type="text" placeholder="Search" value="" name="keyword" required>
-                <!-- mt-3 클래스를 제거하고, form-control 클래스도 제거하여 기본 버튼 스타일을 사용 -->
-                <button class="btn btn-primary" style="width:100px">Search</button>
-            </form>
-        </div>
-    </div>
-    <!-- 상품 검색 창 종료 -->
-
+    <h2>등록한 상품 리스트</h2>
     <br>
 
     <div class="row">
@@ -40,7 +26,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://cdn.pixabay.com/photo/2022/07/25/22/08/watermelon-7344601_1280.jpg" width="300"
+                                <img src="http://localhost:8080/upload/{{imgFileName}}" width="300"
                                      height="300" style="border-radius: 5%">
                                 <div class="mt-3">
                                     <h4>{{name}}</h4>

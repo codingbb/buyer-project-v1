@@ -26,6 +26,10 @@ public class Product {
     @Column(nullable = false)
     private Integer qty;
 
+    //이미지용 //파일 이름(파일 경로)
+    @Column(nullable = false)
+    private String imgFileName;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

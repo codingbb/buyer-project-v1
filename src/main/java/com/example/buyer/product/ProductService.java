@@ -42,9 +42,9 @@ public class ProductService {
         List<Product> productList = productRepo.findAll();
 
         //pk로 no 주니까 너무 지저분해져서 no용 필드를 새로 만들어줌
-        Integer indexNumb = 1;
+        Integer indexNumb = productList.size();
         for (Product product : productList) {
-            product.setIndexNumb(indexNumb++);
+            product.setIndexNumb(indexNumb--);
         }
 
         //엔티티 받아온걸 dto로 변경

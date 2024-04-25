@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,7 +16,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    //TODO: 이것부터 해야함! 상품 목록 보기
     @GetMapping("/product-list")
     public String productList(HttpServletRequest request) {
         List<ProductResponse.ListDTO> productList = productService.findAllList();
@@ -47,6 +47,7 @@ public class ProductController {
     public String main(HttpServletRequest request) {
         List<ProductResponse.MainDTO> productList = productService.findAllMain();
         request.setAttribute("productList", productList);
+        System.out.println(productList);
         return "/index";
     }
 

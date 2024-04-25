@@ -5,7 +5,7 @@
         <!-- 이미지 업로드 섹션 -->
         <div class="col-lg-4 mb-4 mb-lg-0">
             <form id="productForm" action="/upload" method="post" enctype="multipart/form-data">
-                <img src="https://m.lovelanc.com/web/product/big/Lbig230706-48ea_j27.jpg" width="300" height="300">
+                <img src="http://localhost:8080/upload/{{imgFileName}}" width="300" height="300">
                 <div class="row">
                     <div class="form-group mt-3 col-10">
                         <input type="file" class="form-control" id="photo" name="imgFile" accept="image/*">
