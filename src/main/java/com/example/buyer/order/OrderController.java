@@ -33,8 +33,16 @@ public class OrderController {
         return "/order/my-buy-form";
     }
 
-
     // 주문하기
+    @PostMapping("/order")
+    public String order(OrderRequest.DTO requestDTO) {
+        System.out.println(requestDTO);
+        return "/order/buy-list";
+
+    }
+
+
+    // 주문폼
     @PostMapping("/order-form")
     public String orderForm(@RequestParam("productId") Integer productId, @RequestParam("qty") Integer qty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
@@ -44,9 +52,13 @@ public class OrderController {
         System.out.println("상품 정보 : " + product);
         System.out.println("수량 받는 qty : " + qty);
 
+        Integer price = qty * product.getPrice();
+
+//        TODO: request에 한 번에 담아야하지 않겠니
         request.setAttribute("user", user);
         request.setAttribute("product", product);
         request.setAttribute("orderQty", qty);
+        request.setAttribute("price", price);
 
         return "/order/order-form";
     }

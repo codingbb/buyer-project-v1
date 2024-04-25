@@ -10,21 +10,17 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     private final OrderRepository orderRepo;
 
-//    public Product order() {
-//
-//    }
-
+    // 세션에서 유저 조회
     public User findByUserId(Integer id) {
         User user = orderRepo.findByUserId(id);
         return user;
     }
 
+    // 상품 조회
     public Product findByProductId(Integer id) {
         Product product = orderRepo.findByProductId(id);
         return product;
     }
 
-//    public void findByProductId() {
-//        orderRepo.findByProductId();
-//    }
+
 }

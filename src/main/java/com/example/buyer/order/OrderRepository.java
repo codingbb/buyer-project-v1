@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public class OrderRepository {
     private final EntityManager em;
 
+    // 유저 조회
     public User findByUserId(Integer id) {
         String q = """
                 select * from user_tb where id = ?
@@ -22,6 +23,7 @@ public class OrderRepository {
         return user;
     }
 
+    //상품 조회
     public Product findByProductId(Integer id) {
         String q = """
                 select * from product_tb where id = ?
@@ -32,9 +34,5 @@ public class OrderRepository {
         return product;
     }
 
-//    public void findByProductId() {
-//        String q = """
-//                select * from product_tb where id = ?
-//                """;
-//    }
+
 }
