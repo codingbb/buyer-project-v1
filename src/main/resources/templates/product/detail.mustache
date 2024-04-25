@@ -11,90 +11,84 @@
 
         <!-- 상품 정보 입력 -->
         <div class="col-lg-6 px-xl-10">
-            <div class="mb-3 mt-3">
-                상 품 명 : <input name="name" type="text" class="form-control" value="{{product.name}}" disabled>
-            </div>
-            <div class="mb-3 mt-3">
-                상품가격 : <input name="price" type="text" class="form-control" value="{{product.price}}" disabled>
-            </div>
-            <div class="mb-3 mt-3">
-                <div>구매수량 : <span style="color: grey;">(재고 : {{product.qty}})</span></div>
-                <input name="qty" type="number" class="form-control" value="{{product.qty}}">
-            </div>
-            <!--상품 정보 입력 끝-->
 
-            <!-- 구매하기 장바구니 버튼 -->
-            <div class="d-flex justify-content-center">
-                <a href="/order-form">
+            <form action="/order-form" method="post">
+                <input type="hidden" name="productId" value="{{product.id}}">
+
+                <div class="mb-3 mt-3">
+                    상 품 명 : <input name="name" type="text" class="form-control" value="{{product.name}}" disabled>
+                </div>
+                <div class="mb-3 mt-3">
+                    상품가격 : <input name="price" type="text" class="form-control" value="{{product.price}}" disabled>
+                </div>
+                <div class="mb-3 mt-3">
+                    <div>구매수량 : <span style="color: grey;">(재고 : {{product.qty}})</span></div>
+                    <input name="qty" type="number" class="form-control" value="{{product.qty}}">
+                </div>
+                <!--상품 정보 입력 끝-->
+
+                <!-- 구매하기 장바구니 버튼 -->
+                <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary mt-3">구매하기</button>
-                </a>
-                <a href="/cart-form" style="margin-left: 5px;">
-                    <button type="submit" class="btn btn-success mt-3">장바구니</button>
-                </a>
-            </div>
-            <!-- 구매하기 장바구니 버튼 끝 -->
-
-<!--            &lt;!&ndash; 판매자 입장에서 버튼 &ndash;&gt;-->
-<!--            <div class="d-flex justify-content-center">-->
-<!--                <a href="/order-form">-->
-<!--                    <button type="submit" class="btn btn-primary mt-3">수정하기</button>-->
-<!--                </a>-->
-<!--                <a href="/cart-form" style="margin-left: 5px;">-->
-<!--                    <button type="submit" class="btn btn-danger mt-3">삭제하기</button>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; 판매자 입장에서 버튼 &ndash;&gt;-->
-
-        </div>
-    </div>
-
-    <br><br><br>
-    <hr>
-    <div style="color: blue; text-align: center; font-size: 24px;">
-        상품후기
-    </div>
-
-    <br>
-    <!-- 댓글 -->
-    <div class="card mt-3">
-        <!-- 댓글등록 -->
-        <div class="card-body">
-            <form action="/reply/save" method="post">
-                <textarea class="form-control" rows="2" name="comment"
-                          placeholder="상품 후기를 작성해주세요. 비방 및 욕설 댓글은 삭제됩니다."></textarea>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-outline-primary mt-1">후기등록</button>
+                    <a href="/cart-form" style="margin-left: 5px;">
+                        <button type="submit" class="btn btn-success mt-3">장바구니</button>
+                    </a>
                 </div>
             </form>
-        </div>
 
-        <!-- 댓글목록 -->
-        <div class="card-footer">
-            <b>후기</b>
         </div>
-        <div class="list-group">
-            <!-- 댓글아이템 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-primary text-white rounded">cos</div>
-                    <div>지는 법을 모르는</div>
-                </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
+        <!-- 구매하기 장바구니 버튼 끝 -->
+
+    </div>
+</div>
+
+<br><br><br>
+<hr>
+<div style="color: blue; text-align: center; font-size: 24px;">
+    상품후기
+</div>
+
+<br>
+<!-- 댓글 -->
+<div class="card mt-3">
+    <!-- 댓글등록 -->
+    <div class="card-body">
+        <form action="/reply/save" method="post">
+                <textarea class="form-control" rows="2" name="comment"
+                          placeholder="상품 후기를 작성해주세요. 비방 및 욕설 댓글은 삭제됩니다."></textarea>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-outline-primary mt-1">후기등록</button>
             </div>
-            <!-- 댓글아이템 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-primary text-white rounded">ssar</div>
-                    <div>최강 기아 타이거즈!</div>
-                </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
+        </form>
+    </div>
+
+    <!-- 댓글목록 -->
+    <div class="card-footer">
+        <b>후기</b>
+    </div>
+    <div class="list-group">
+        <!-- 댓글아이템 -->
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <div class="px-1 me-1 bg-primary text-white rounded">cos</div>
+                <div>지는 법을 모르는</div>
             </div>
+            <form action="/reply/1/delete" method="post">
+                <button class="btn">🗑</button>
+            </form>
+        </div>
+        <!-- 댓글아이템 -->
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <div class="px-1 me-1 bg-primary text-white rounded">ssar</div>
+                <div>최강 기아 타이거즈!</div>
+            </div>
+            <form action="/reply/1/delete" method="post">
+                <button class="btn">🗑</button>
+            </form>
         </div>
     </div>
+</div>
 
 </div>
 

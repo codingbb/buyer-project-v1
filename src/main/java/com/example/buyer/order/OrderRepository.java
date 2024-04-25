@@ -1,5 +1,6 @@
 package com.example.buyer.order;
 
+import com.example.buyer.product.Product;
 import com.example.buyer.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -20,4 +21,20 @@ public class OrderRepository {
         User user = (User) query.getSingleResult();
         return user;
     }
+
+    public Product findByProductId(Integer id) {
+        String q = """
+                select * from product_tb where id = ?
+                """;
+        Query query = em.createNativeQuery(q, Product.class);
+        query.setParameter(1, id);
+        Product product = (Product) query.getSingleResult();
+        return product;
+    }
+
+//    public void findByProductId() {
+//        String q = """
+//                select * from product_tb where id = ?
+//                """;
+//    }
 }
