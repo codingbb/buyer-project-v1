@@ -12,12 +12,14 @@ public class ProductResponse {
         private Integer id;
         private String name;
         private Integer price;
+        private String imgFileName;
 
         @Builder
         public ListDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
+            this.imgFileName = product.getImgFileName();
         }
     }
 

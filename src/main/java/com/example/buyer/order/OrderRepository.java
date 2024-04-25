@@ -9,4 +9,9 @@ import org.springframework.stereotype.Repository;
 public class OrderRepository {
     private final EntityManager em;
 
+    public void orderWithUser() {
+
+    }
+
+
 }

@@ -5,9 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +12,8 @@ import java.util.List;
 @Controller
 public class ProductController {
     private final ProductService productService;
+
+    //TODO: /buy-list는 Order로 빼야함~~
 
     @GetMapping("/product-list")
     public String productList(HttpServletRequest request) {
@@ -29,7 +28,7 @@ public class ProductController {
     public String buyList(HttpServletRequest request) {
         List<ProductResponse.BuyListDTO> productList = productService.findAllBuyList();
         request.setAttribute("productList", productList);
-        return "/product/buy-list";
+        return "/order/buy-list";
     }
 
 

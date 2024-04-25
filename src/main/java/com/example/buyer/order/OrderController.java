@@ -1,5 +1,7 @@
 package com.example.buyer.order;
 
+import com.example.buyer.user.User;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class OrderController {
     private final OrderService orderService;
+    private final HttpSession session;
 
     @GetMapping("/cart-form")
     public String cartForm() {
@@ -23,6 +26,8 @@ public class OrderController {
 
     @GetMapping("/order-form")
     public String orderForm() {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
 
         return "/order/order-form";
     }
