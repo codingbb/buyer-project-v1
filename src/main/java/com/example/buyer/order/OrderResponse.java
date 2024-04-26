@@ -4,10 +4,29 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class OrderResponse {
 
+    //주문 폼 DTO
+    @Data
+    public static class ViewDTO {
+        // 유저 정보
+        private Integer userId;
+        private String name;    //유저 성명
+        private String address;
+        private String phone;
+
+        //주문 상품 정보 //product
+        private Integer productId;
+        private String productName;     //상품 이름
+
+        //주문한 상품 수량 //order
+        private Integer buyQty;
+        private Integer sum;
+
+    }
+
+    //내 구매목록 DTO
     @Data
     public static class ListDTO {
         private Integer id;

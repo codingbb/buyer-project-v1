@@ -66,6 +66,7 @@ public class OrderController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = orderService.findByUserId(sessionUser.getId());
 
+        //select 2번 해야하지 않을까 ? ?
         Product product = orderService.findByProductId(productId);
 //        System.out.println("상품 정보 : " + product);
 //        System.out.println("수량 받는 qty : " + qty);
