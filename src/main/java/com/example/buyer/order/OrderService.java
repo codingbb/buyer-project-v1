@@ -35,6 +35,12 @@ public class OrderService {
 
     public List<OrderResponse.ListDTO> findAll() {
         List<OrderResponse.ListDTO> orderList = orderRepo.findAll();
+
+        Integer indexNum = orderList.size();
+        for (OrderResponse.ListDTO listNum : orderList) {
+            listNum.setIndexNum(indexNum--);
+        }
+
         return orderList;
     }
 }

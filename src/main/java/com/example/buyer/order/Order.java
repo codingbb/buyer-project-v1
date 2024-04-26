@@ -28,6 +28,9 @@ public class Order {
     //합계
     private Integer sum;
 
+    @Transient
+    private Integer indexNum;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

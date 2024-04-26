@@ -20,16 +20,15 @@ public class OrderController {
     private final OrderService orderService;
     private final HttpSession session;
 
-// TODO:  - 구매가 되면, 상품의 재고 수정이 필요함 (qty)가 줄어들어야 함.
-// TODO:  - 구매가 되면 Order 테이블에 구매목록이 insert되어야 함.
-// TODO:  - 구매 목록 보기 기능이 필요함.
 
+    //장바구니
     @GetMapping("/cart-form")
     public String cartForm() {
 
         return "/order/cart-form";
     }
 
+    //내가 주문한 상품 확인 폼
     @GetMapping("/my-buy-form")
     public String myBuyForm() {
 
@@ -41,13 +40,13 @@ public class OrderController {
     @GetMapping("/buy-list")
     public String buyList(HttpServletRequest request) {
         List<OrderResponse.ListDTO> orderList = orderService.findAll();
-        System.out.println("오더 리스트 여기! : " + orderList);
+//        System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 
         return "/order/buy-list";
     }
 
-    // 주문하기
+    // 주문하기 = 구매하기
     @PostMapping("/order")
     public String order(OrderRequest.DTO requestDTO) {
 //        System.out.println(requestDTO);
