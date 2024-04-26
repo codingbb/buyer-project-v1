@@ -23,7 +23,7 @@
             <th class="center-align col-2">상품가격</th>
             <th class="center-align col-2">결제방법</th>
             <th class="center-align col-2">주문날짜</th>
-            <th class="center-align col-2">상세보기</th>
+            <th class="center-align col-2">현재상태</th>
         </tr>
         </thead>
         <!--        목록 끝-->
@@ -32,6 +32,7 @@
         <tbody>
         {{#orderList}}
             <tr class="offer-table">
+
                 <th scope="row">{{indexNum}}</th>
                 <td>{{name}}</td>
                 <td>{{buyQty}}</td>
@@ -41,7 +42,7 @@
                 <td>
                     <div class="new-create-button">
                         <form action="/my-buy-form">
-                            <button type="submit" class="btn btn-outline-primary">상세보기</button>
+                            <button type="submit" class="btn btn-outline-primary">주문완료</button>
                         </form>
                     </div>
                 </td>

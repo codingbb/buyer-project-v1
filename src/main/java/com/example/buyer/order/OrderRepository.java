@@ -18,6 +18,7 @@ import java.util.List;
 public class OrderRepository {
     private final EntityManager em;
 
+    //TODO: 만약 똑같은 쿼리문을 UserRepository에서 사용한다고 하면 그걸 끌어와서 써야하는지?
     // 유저 조회
     public User findByUserId(Integer id) {
         String q = """
@@ -41,6 +42,7 @@ public class OrderRepository {
     }
 
 
+    //구매하기 !!
     public void save(OrderRequest.DTO requestDTO) {
         String q = """
                 insert into order_tb (user_id, product_id, buy_qty, sum, payment, created_at) values (?, ?, ?, ?, ?, now());
@@ -69,9 +71,9 @@ public class OrderRepository {
 
     // TODO: 돌아가는지 테스트 좀 하고 써라! 까먹지마~!!
     //buy-list 조회용
-    public List<OrderResponse.ListDTO> findAll() {
+    public List<OrderResponse.ListDTO> findAllList() {
         String q = """
-                select o.id, o.buy_qty, o.payment, o.sum, o.created_at, p.name 
+                select o.id, o.user_id, o.buy_qty, o.payment, o.sum, o.created_at, p.name 
                 from order_tb o 
                 inner join product_tb p on o.product_id = p.id 
                 order by o.id desc;
@@ -85,14 +87,16 @@ public class OrderRepository {
         for (Object[] row : rows) {
             //listDTO
             Integer id = (Integer) row[0];
-            Integer buyQty = (Integer) row[1];
-            String payment = (String) row[2];
-            Integer sum = (Integer) row[3];
-            LocalDate createdAt = ((Timestamp) row[4]).toLocalDateTime().toLocalDate();
-            String name = (String) row[5];
+            Integer userId = (Integer) row[1];
+            Integer buyQty = (Integer) row[2];
+            String payment = (String) row[3];
+            Integer sum = (Integer) row[4];
+            LocalDate createdAt = ((Timestamp) row[5]).toLocalDateTime().toLocalDate();
+            String name = (String) row[6];
 
             OrderResponse.ListDTO listDTO = OrderResponse.ListDTO.builder()
                     .id(id)
+                    .userId(userId)
                     .buyQty(buyQty)
                     .payment(payment)
                     .sum(sum)

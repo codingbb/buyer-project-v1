@@ -39,7 +39,7 @@ public class ProductController {
     public String main(HttpServletRequest request) {
         List<ProductResponse.MainDTO> productList = productService.findAllMain();
         request.setAttribute("productList", productList);
-        System.out.println(productList);
+//        System.out.println(productList);
         return "/index";
     }
 

@@ -3,6 +3,7 @@ package com.example.buyer.order;
 import com.example.buyer.product.Product;
 import com.example.buyer.product.ProductResponse;
 import com.example.buyer.user.User;
+import com.example.buyer.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ import java.util.List;
 @Controller
 public class OrderController {
     private final OrderService orderService;
+    private final UserService userService;
     private final HttpSession session;
-
 
     //장바구니
     @GetMapping("/cart-form")
@@ -39,7 +40,9 @@ public class OrderController {
     //내 구매목록
     @GetMapping("/buy-list")
     public String buyList(HttpServletRequest request) {
-        List<OrderResponse.ListDTO> orderList = orderService.findAll();
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        List<OrderResponse.ListDTO> orderList = orderService.findListAll(sessionUser.getId());
 //        System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 

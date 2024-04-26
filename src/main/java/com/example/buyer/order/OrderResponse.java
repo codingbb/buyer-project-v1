@@ -11,6 +11,7 @@ public class OrderResponse {
     @Data
     public static class ListDTO {
         private Integer id;
+        private Integer userId;
         private Integer buyQty;
         private String payment;
         private Integer sum;
@@ -19,8 +20,9 @@ public class OrderResponse {
         private Integer indexNum;
 
         @Builder
-        public ListDTO(Integer id, Integer buyQty, String payment, Integer sum, LocalDate createdAt, String name, Integer indexNum) {
+        public ListDTO(Integer id, Integer userId, Integer buyQty, String payment, Integer sum, LocalDate createdAt, String name, Integer indexNum) {
             this.id = id;
+            this.userId = userId;
             this.buyQty = buyQty;
             this.payment = payment;
             this.sum = sum;

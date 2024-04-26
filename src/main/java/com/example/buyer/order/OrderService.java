@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +27,7 @@ public class OrderService {
     }
 
 
+    //구매하기 로직
     @Transactional
     public void saveOrder(OrderRequest.DTO requestDTO) {
         orderRepo.save(requestDTO);
@@ -33,14 +35,22 @@ public class OrderService {
 
     }
 
-    public List<OrderResponse.ListDTO> findAll() {
-        List<OrderResponse.ListDTO> orderList = orderRepo.findAll();
+    //내 구매목록 로직
+    public List<OrderResponse.ListDTO> findListAll(Integer sessionUserId) {
+        List<OrderResponse.ListDTO> orderList = orderRepo.findAllList();
 
-        Integer indexNum = orderList.size();
-        for (OrderResponse.ListDTO listNum : orderList) {
+        //ssar 유저가 구매한 내역만 나와야함
+        //필터를 쓰는구나..............!!!!!!!!!!!!!!
+        List<OrderResponse.ListDTO> findUserOrderList = orderList.stream().filter(list ->
+                sessionUserId != null && sessionUserId.equals(list.getUserId()))
+                .collect(Collectors.toList());
+
+        // 화면의 No용
+        Integer indexNum = findUserOrderList.size();
+        for (OrderResponse.ListDTO listNum : findUserOrderList) {
             listNum.setIndexNum(indexNum--);
         }
 
-        return orderList;
+        return findUserOrderList;
     }
 }
