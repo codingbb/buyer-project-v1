@@ -50,7 +50,7 @@ public class OrderController {
     // 주문하기
     @PostMapping("/order")
     public String order(OrderRequest.DTO requestDTO) {
-        System.out.println(requestDTO);
+//        System.out.println(requestDTO);
         orderService.saveOrder(requestDTO);
 
         return "redirect:/buy-list";
@@ -65,8 +65,8 @@ public class OrderController {
         User user = orderService.findByUserId(sessionUser.getId());
 
         Product product = orderService.findByProductId(productId);
-        System.out.println("상품 정보 : " + product);
-        System.out.println("수량 받는 qty : " + qty);
+//        System.out.println("상품 정보 : " + product);
+//        System.out.println("수량 받는 qty : " + qty);
 
         Integer price = qty * product.getPrice();
 

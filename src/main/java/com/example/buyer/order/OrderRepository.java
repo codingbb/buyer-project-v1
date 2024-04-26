@@ -7,6 +7,10 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -52,12 +56,43 @@ public class OrderRepository {
 
     }
 
+    //buy-list 조회용
     public List<OrderResponse.ListDTO> findAll() {
         String q = """
-                select * from order_tb order by id desc 
+                select o.id, o.buy_qty, o.payment, o.sum, o.created_at, p.name 
+                from order_tb o 
+                inner join product_tb p on o.product_id = p.id 
+                order by o.id desc;
                 """;
-        Query query = em.createNativeQuery(q, Order.class);
-        List<OrderResponse.ListDTO> orderList = query.getResultList();
+        Query query = em.createNativeQuery(q);
+
+        //Object 배열 타입으로 받아야함.
+        List<Object[]> rows = (List<Object[]>) query.getResultList();
+        List<OrderResponse.ListDTO> orderList = new ArrayList<>();
+
+        for (Object[] row : rows) {
+            //listDTO
+            Integer id = (Integer) row[0];
+            Integer buyQty = (Integer) row[1];
+            String payment = (String) row[2];
+            Integer sum = (Integer) row[3];
+            LocalDate createdAt = ((Timestamp) row[4]).toLocalDateTime().toLocalDate();
+            String name = (String) row[5];
+
+            OrderResponse.ListDTO listDTO = OrderResponse.ListDTO.builder()
+                    .id(id)
+                    .buyQty(buyQty)
+                    .payment(payment)
+                    .sum(sum)
+                    .createdAt(createdAt)
+                    .name(name)
+                    .build();
+
+            orderList.add(listDTO);
+        }
+
+        System.out.println("db값 확인용..." + orderList);
+
         return orderList;
 
     }

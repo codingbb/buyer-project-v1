@@ -18,9 +18,11 @@
         <thead>
         <tr>
             <th class="center-align col-1">No</th>
-            <th class="center-align col-3">사진</th>
-            <th class="center-align col-4">상품명</th>
+            <th class="center-align col-2">상품명</th>
+            <th class="center-align col-1">수량</th>
             <th class="center-align col-2">상품가격</th>
+            <th class="center-align col-2">결제방법</th>
+            <th class="center-align col-2">주문날짜</th>
             <th class="center-align col-2">상세보기</th>
         </tr>
         </thead>
@@ -31,9 +33,11 @@
         {{#orderList}}
             <tr class="offer-table">
                 <th scope="row">1</th>
-                <td>사진 넣자</td>
-                <td>상품</td>
-                <td class="price">3333</td>
+                <td>{{name}}</td>
+                <td>{{buyQty}}</td>
+                <td class="sum">{{sum}}</td>
+                <td>{{payment}}</td>
+                <td>{{createdAt}}</td>
                 <td>
                     <div class="new-create-button">
                         <form action="/my-buy-form">
