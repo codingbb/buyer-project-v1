@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    //TODO: /buy-list는 Order로 빼야함~~
+    //TODO: main에 수량은 필요 없는데 자꾸 값이 나온다. dto에서 제외하자
 
     @GetMapping("/product-list")
     public String productList(HttpServletRequest request) {
@@ -23,13 +23,6 @@ public class ProductController {
         return "/product/product-list";
     }
 
-    //내 구매목록
-    @GetMapping("/buy-list")
-    public String buyList(HttpServletRequest request) {
-        List<ProductResponse.BuyListDTO> productList = productService.findAllBuyList();
-        request.setAttribute("productList", productList);
-        return "/order/buy-list";
-    }
 
 
     //상품 상세보기

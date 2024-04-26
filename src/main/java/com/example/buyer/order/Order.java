@@ -20,9 +20,13 @@ public class Order {
     private Integer userId;
     private Integer productId;
 //    private String state;   //구매 완료, 배송 완료
+    private String payment;
 
     //구매 수량
     private Integer buyQty;
+
+    //합계
+    private Integer sum;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -2,6 +2,7 @@ package com.example.buyer.order;
 
 import com.example.buyer.product.Product;
 import com.example.buyer.user.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +24,9 @@ public class OrderService {
     }
 
 
+    @Transactional
+    public void saveOrder(OrderRequest.DTO requestDTO) {
+        orderRepo.save(requestDTO);
+
+    }
 }

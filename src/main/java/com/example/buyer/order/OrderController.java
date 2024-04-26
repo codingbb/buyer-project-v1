@@ -1,6 +1,7 @@
 package com.example.buyer.order;
 
 import com.example.buyer.product.Product;
+import com.example.buyer.product.ProductResponse;
 import com.example.buyer.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -33,11 +36,21 @@ public class OrderController {
         return "/order/my-buy-form";
     }
 
+
+    //내 구매목록
+    @GetMapping("/buy-list")
+    public String buyList(HttpServletRequest request) {
+
+        return "/order/buy-list";
+    }
+
     // 주문하기
     @PostMapping("/order")
     public String order(OrderRequest.DTO requestDTO) {
         System.out.println(requestDTO);
-        return "/order/buy-list";
+        orderService.saveOrder(requestDTO);
+
+        return "redirect:/buy-list";
 
     }
 

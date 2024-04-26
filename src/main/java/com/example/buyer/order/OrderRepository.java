@@ -35,4 +35,18 @@ public class OrderRepository {
     }
 
 
+    public void save(OrderRequest.DTO requestDTO) {
+        String q = """
+                insert into order_tb (user_id, product_id, buy_qty, sum, payment, created_at) values (?, ?, ?, ?, ?, now());
+                """;
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, requestDTO.getUserId());
+        query.setParameter(2, requestDTO.getProductId());
+        query.setParameter(3, requestDTO.getBuyQty());
+        query.setParameter(4, requestDTO.getSum());
+        query.setParameter(5, requestDTO.getPayment());
+
+        query.executeUpdate();
+
+    }
 }
