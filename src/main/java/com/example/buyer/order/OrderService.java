@@ -29,6 +29,7 @@ public class OrderService {
     @Transactional
     public void saveOrder(OrderRequest.DTO requestDTO) {
         orderRepo.save(requestDTO);
+        orderRepo.updateQty(requestDTO);
 
     }
 

@@ -53,9 +53,21 @@ public class OrderRepository {
         query.setParameter(5, requestDTO.getPayment());
 
         query.executeUpdate();
-
     }
 
+    //상품을 구매하면 재고 차감
+    public void updateQty(OrderRequest.DTO requestDTO) {
+        String q = """
+                update product_tb set qty = qty - ? where id = ?
+                """;
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, requestDTO.getBuyQty());
+        query.setParameter(2, requestDTO.getProductId());
+        query.executeUpdate();
+    }
+
+
+    // TODO: 돌아가는지 테스트 좀 하고 써라! 까먹지마~!!
     //buy-list 조회용
     public List<OrderResponse.ListDTO> findAll() {
         String q = """
