@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class OrderService {
@@ -28,5 +30,10 @@ public class OrderService {
     public void saveOrder(OrderRequest.DTO requestDTO) {
         orderRepo.save(requestDTO);
 
+    }
+
+    public List<OrderResponse.ListDTO> findAll() {
+        List<OrderResponse.ListDTO> orderList = orderRepo.findAll();
+        return orderList;
     }
 }

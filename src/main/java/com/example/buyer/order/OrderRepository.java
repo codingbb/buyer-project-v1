@@ -7,6 +7,8 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class OrderRepository {
@@ -47,6 +49,16 @@ public class OrderRepository {
         query.setParameter(5, requestDTO.getPayment());
 
         query.executeUpdate();
+
+    }
+
+    public List<OrderResponse.ListDTO> findAll() {
+        String q = """
+                select * from order_tb order by id desc 
+                """;
+        Query query = em.createNativeQuery(q, Order.class);
+        List<OrderResponse.ListDTO> orderList = query.getResultList();
+        return orderList;
 
     }
 }

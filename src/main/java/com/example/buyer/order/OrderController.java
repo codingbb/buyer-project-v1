@@ -40,6 +40,9 @@ public class OrderController {
     //내 구매목록
     @GetMapping("/buy-list")
     public String buyList(HttpServletRequest request) {
+        List<OrderResponse.ListDTO> orderList = orderService.findAll();
+        System.out.println("오더 리스트 여기! : " + orderList);
+        request.setAttribute("orderList", orderList);
 
         return "/order/buy-list";
     }
