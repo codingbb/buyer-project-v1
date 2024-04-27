@@ -15,6 +15,7 @@ public class OrderResponse {
         private Integer sum;        //총합
         private String payment;
         private Integer userId;     //user id
+        private String status;
 
         private String uName;    //성함
         private String address;
@@ -28,13 +29,14 @@ public class OrderResponse {
         private Boolean isAccount = false;
 
         @Builder
-        public BuyFormDTO(Integer id, Integer buyQty, Integer productId, Integer sum, String payment, Integer userId, String uName, String address, String phone, String pName, Integer price) {
+        public BuyFormDTO(Integer id, Integer buyQty, Integer productId, Integer sum, String payment, Integer userId, String status, String uName, String address, String phone, String pName, Integer price) {
             this.id = id;
             this.buyQty = buyQty;
             this.productId = productId;
             this.sum = sum;
             this.payment = payment;
             this.userId = userId;
+            this.status = status;
             this.uName = uName;
             this.address = address;
             this.phone = phone;
@@ -63,17 +65,19 @@ public class OrderResponse {
         private Integer buyQty;
         private String payment;
         private Integer sum;
+        private String status;
         private LocalDate createdAt;
         private String name;
         private Integer indexNum;
 
         @Builder
-        public ListDTO(Integer id, Integer userId, Integer buyQty, String payment, Integer sum, LocalDate createdAt, String name, Integer indexNum) {
+        public ListDTO(Integer id, Integer userId, Integer buyQty, String payment, Integer sum, String status, LocalDate createdAt, String name, Integer indexNum) {
             this.id = id;
             this.userId = userId;
             this.buyQty = buyQty;
             this.payment = payment;
             this.sum = sum;
+            this.status = status;
             this.createdAt = createdAt;
             this.name = name;
             this.indexNum = indexNum;

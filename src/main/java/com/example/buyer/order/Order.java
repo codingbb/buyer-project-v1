@@ -19,7 +19,6 @@ public class Order {
 
     private Integer userId;
     private Integer productId;
-//    private String state;   //구매 완료, 배송 완료
     private String payment;
 
     //구매 수량
@@ -27,6 +26,9 @@ public class Order {
 
     //합계
     private Integer sum;
+
+    //구매 상태
+    private String status;  //주문완료, 취소완료
 
     @Transient
     private Integer indexNum;

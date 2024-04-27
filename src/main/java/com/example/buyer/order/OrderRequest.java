@@ -53,8 +53,10 @@ public class OrderRequest {
         private String pName;
         private Integer buyQty;    //선택한 수량
         private Integer price;  //계산된 가격
-        private Integer sum; //합계
 
+        //order에 넣는 부분
+        private Integer sum; //합계
+        private String status;
 
     }
 

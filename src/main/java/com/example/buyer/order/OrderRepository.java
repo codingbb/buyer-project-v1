@@ -18,7 +18,10 @@ import java.util.List;
 public class OrderRepository {
     private final EntityManager em;
 
-    //TODO: 만약 똑같은 쿼리문을 UserRepository에서 사용한다고 하면 그걸 끌어와서 써야하는지?
+    //주문 취소 쿼리문 (update 쓰자)
+
+
+    //TODO: 만약 똑같은 쿼리문을 UserRepository에서 사용한다고 하면 그걸 끌어와서 써야하는지? 아닐거같은데
     // 유저 조회
     public User findByUserId(Integer id) {
         String q = """
@@ -45,14 +48,15 @@ public class OrderRepository {
     //구매하기 !!
     public void save(OrderRequest.DTO requestDTO) {
         String q = """
-                insert into order_tb (user_id, product_id, buy_qty, sum, payment, created_at) values (?, ?, ?, ?, ?, now());
+                insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at) values (?, ?, ?, ?, ?, ?, now());
                 """;
         Query query = em.createNativeQuery(q);
         query.setParameter(1, requestDTO.getUserId());
         query.setParameter(2, requestDTO.getProductId());
         query.setParameter(3, requestDTO.getBuyQty());
         query.setParameter(4, requestDTO.getSum());
-        query.setParameter(5, requestDTO.getPayment());
+        query.setParameter(5, requestDTO.getStatus());
+        query.setParameter(6, requestDTO.getPayment());
 
         query.executeUpdate();
     }
@@ -71,7 +75,7 @@ public class OrderRepository {
     //주문내역 폼 (my-buy-form) 조회용
     public OrderResponse.BuyFormDTO findBuyForm(Integer orderId) {
         String q = """
-                select o.id, o.buy_qty, o.product_id, o.sum, o.payment, o.user_id, 
+                select o.id, o.buy_qty, o.product_id, o.sum, o.payment, o.user_id, o.status, 
                 u.name uName, u.address, u.phone, p.name pName, p.price 
                 from order_tb o 
                 inner join user_tb u on o.user_id = u.id 
@@ -89,11 +93,12 @@ public class OrderRepository {
         Integer sum = (Integer) row[3];
         String payment = (String) row[4];
         Integer userId = (Integer) row[5];
-        String uName = (String) row[6];
-        String address = (String) row[7];
-        String phone = (String) row[8];
-        String pName = (String) row[9];
-        Integer price = (Integer) row[10];
+        String status = (String) row[6];
+        String uName = (String) row[7];
+        String address = (String) row[8];
+        String phone = (String) row[9];
+        String pName = (String) row[10];
+        Integer price = (Integer) row[11];
 
         OrderResponse.BuyFormDTO buyForm = OrderResponse.BuyFormDTO.builder()
                 .id(id)
@@ -102,6 +107,7 @@ public class OrderRepository {
                 .sum(sum)
                 .payment(payment)
                 .userId(userId)
+                .status(status)
                 .uName(uName)
                 .address(address)
                 .phone(phone)
@@ -118,7 +124,7 @@ public class OrderRepository {
     //buy-list 조회용
     public List<OrderResponse.ListDTO> findAllList() {
         String q = """
-                select o.id, o.user_id, o.buy_qty, o.payment, o.sum, o.created_at, p.name 
+                select o.id, o.user_id, o.buy_qty, o.payment, o.sum, o.status, o.created_at, p.name 
                 from order_tb o 
                 inner join product_tb p on o.product_id = p.id 
                 order by o.id desc;
@@ -136,8 +142,9 @@ public class OrderRepository {
             Integer buyQty = (Integer) row[2];
             String payment = (String) row[3];
             Integer sum = (Integer) row[4];
-            LocalDate createdAt = ((Timestamp) row[5]).toLocalDateTime().toLocalDate();
-            String name = (String) row[6];
+            String status = (String) row[5];
+            LocalDate createdAt = ((Timestamp) row[6]).toLocalDateTime().toLocalDate();
+            String name = (String) row[7];
 
             OrderResponse.ListDTO listDTO = OrderResponse.ListDTO.builder()
                     .id(id)
@@ -145,6 +152,7 @@ public class OrderRepository {
                     .buyQty(buyQty)
                     .payment(payment)
                     .sum(sum)
+                    .status(status)
                     .createdAt(createdAt)
                     .name(name)
                     .build();

@@ -21,6 +21,13 @@ public class OrderController {
     private final OrderService orderService;
     private final HttpSession session;
 
+    @PostMapping("/order-cancel")
+    public String orderCancel() {
+
+        return "redirect:/";
+    }
+
+
     //장바구니
     @GetMapping("/cart-form")
     public String cartForm() {
