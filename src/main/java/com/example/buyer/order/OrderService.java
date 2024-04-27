@@ -14,6 +14,16 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderRepository orderRepo;
 
+    public OrderRequest.ViewDTO viewForm(Integer sessionUserId, Integer productId, Integer buyQty) {
+        User user = orderRepo.findByUserId(sessionUserId);
+        Product product = orderRepo.findByProductId(productId);
+
+        Integer sum = buyQty * product.getPrice();
+
+        return new OrderRequest.ViewDTO(user, product, buyQty, sum);
+    }
+
+
     // 세션에서 유저 조회
     public User findByUserId(Integer id) {
         User user = orderRepo.findByUserId(id);

@@ -19,7 +19,6 @@ import java.util.List;
 @Controller
 public class OrderController {
     private final OrderService orderService;
-    private final UserService userService;
     private final HttpSession session;
 
     //장바구니
@@ -59,25 +58,30 @@ public class OrderController {
 
     }
 
-
     // 주문폼
     @PostMapping("/order-form")
-    public String orderForm(@RequestParam("productId") Integer productId, @RequestParam("qty") Integer qty, HttpServletRequest request) {
+    public String orderForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = orderService.findByUserId(sessionUser.getId());
+
+        //dto 사용해서 한 번에 다 담기
+        OrderRequest.ViewDTO dto = orderService.viewForm(sessionUser.getId(), productId, buyQty);
+//        System.out.println("주문폼 dto 값 확인 : " + dto);
+        request.setAttribute("order", dto);
+
 
         //select 2번 해야하지 않을까 ? ?
-        Product product = orderService.findByProductId(productId);
+//        User user = orderService.findByUserId(sessionUser.getId());
+//        Product product = orderService.findByProductId(productId);
+
 //        System.out.println("상품 정보 : " + product);
 //        System.out.println("수량 받는 qty : " + qty);
 
-        Integer price = qty * product.getPrice();
+        //        Integer price = buyQty * dto.getPrice();
 
 //        TODO: request에 한 번에 담아야하지 않겠니
-        request.setAttribute("user", user);
-        request.setAttribute("product", product);
-        request.setAttribute("orderQty", qty);
-        request.setAttribute("price", price);
+//        request.setAttribute("user", user);
+//        request.setAttribute("product", product);
+//        request.setAttribute("price", price);
 
         return "/order/order-form";
     }
