@@ -60,7 +60,7 @@ public class OrderResponse {
         public void isOrderCancel() {
             if ("주문취소".equals(status)) {
                 this.isNotCancel = false;
-                System.out.println("나오니~~~??");
+//                System.out.println("나오니~~~??");
             }
 
         }

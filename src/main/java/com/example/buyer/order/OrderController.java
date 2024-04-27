@@ -21,6 +21,7 @@ public class OrderController {
     private final OrderService orderService;
     private final HttpSession session;
 
+    //주문 취소 로직
     @PostMapping("/order-cancel")
     public String orderCancel(OrderRequest.CancelDTO requestDTO) {
 //        System.out.println("주문 취소 DTO : " + requestDTO);
