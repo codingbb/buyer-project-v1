@@ -52,7 +52,7 @@ public class OrderController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<OrderResponse.ListDTO> orderList = orderService.findListAll(sessionUser.getId());
-        System.out.println("오더 리스트 여기! : " + orderList);
+//        System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 
         return "/order/buy-list";

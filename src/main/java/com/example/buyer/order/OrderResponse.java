@@ -28,6 +28,9 @@ public class OrderResponse {
         private Boolean isCredit = false;
         private Boolean isAccount = false;
 
+        //주문 취소 버튼 안 보이는 용
+        private Boolean isNotCancel = true;
+
         @Builder
         public BuyFormDTO(Integer id, Integer buyQty, Integer productId, Integer sum, String payment, Integer userId, String status, String uName, String address, String phone, String pName, Integer price) {
             this.id = id;
@@ -43,7 +46,7 @@ public class OrderResponse {
             this.pName = pName;
             this.price = price;
             payCheck();
-
+            isOrderCancel();
         }
 
         public void payCheck() {
@@ -52,6 +55,14 @@ public class OrderResponse {
             } if ("신용카드".equals(payment)) {
                 this.isCredit = true;
             }
+        }
+
+        public void isOrderCancel() {
+            if ("주문취소".equals(status)) {
+                this.isNotCancel = false;
+                System.out.println("나오니~~~??");
+            }
+
         }
 
     }

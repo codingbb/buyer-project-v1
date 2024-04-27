@@ -107,10 +107,12 @@
                     </div>
 
                     <br>
+
+                    {{#buyForm.isNotCancel}}
                     <hr class="my-4">
                     <br>
-
                     <button class="w-50 btn btn-danger btn-lg mx-auto d-block" type="submit">주문취소</button>
+                    {{/buyForm.isNotCancel}}
                     </form>
                 </div>
             </div>
