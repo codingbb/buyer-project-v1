@@ -28,10 +28,11 @@ public class OrderController {
         return "/order/cart-form";
     }
 
-    //내가 주문한 상품 확인 폼
+    //내가 주문한 상품 확인 폼 //주문한 내역이 나와야함
     @GetMapping("/my-buy-form")
-    public String myBuyForm() {
-
+    public String myBuyForm(HttpServletRequest request, @RequestParam Integer orderId) {
+        OrderResponse.BuyFormDTO findBuyForm = orderService.findBuyForm(orderId);
+        request.setAttribute("buyForm", findBuyForm);
         return "/order/my-buy-form";
     }
 

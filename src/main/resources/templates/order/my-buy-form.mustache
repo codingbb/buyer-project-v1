@@ -23,34 +23,32 @@
                         <span class="badge bg-primary rounded-pill">2</span>
                     </h4>
 
-                    <!--  목록 리스트 1-->
-                    <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">짱구는 못말려</h6>
-                                <small class="text-muted">3개</small>
-                            </div>
-                            <b><span class="text-muted">9000</span></b>
-                        </li>
-                        <!--    목록 리스트 1-->
+                    <form action="/order-cancel" method="post" class="needs-validation" novalidate="">
+                        <!--  목록 리스트 1-->
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <input type="hidden" name="userId" value="1">
+                                <input type="hidden" name="productId" value="1">
+                                <div>
+                                    <input style="font-weight: bold" type="text" class="form-control" id="pName"
+                                           name="pName" value="{{buyForm.pName}}" readonly>
+                                    <input type="text" class="form-control" id="buyQty" name="buyQty"
+                                           value="{{buyForm.buyQty}}"
+                                           readonly>
+                                </div>
+                                <input type="text" class="form-control" id="price" name="price" value="{{buyForm.price}}"
+                                       readonly>
+                            </li>
+                            <!--    목록 리스트 1-->
 
-                        <!--   목록 리스트 2-->
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">레몬 캔디</h6>
-                                <small class="text-muted">1개</small>
-                            </div>
-                            <b><span class="text-muted">5000</span></b>
-                        </li>
-                        <!--    목록 리스트2 -->
-
-                        <!--  합계 -->
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>합계 (원)</span>
-                            <strong>14000</strong>
-                        </li>
-                        <!--   합계 -->
-                    </ul>
+                            <!--  합계 -->
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>합계 (원)</span>
+                                <input type="text" class="form-control" id="sum" name="sum" value="{{buyForm.sum}}"
+                                       readonly>
+                            </li>
+                            <!--   합계 -->
+                        </ul>
                 </div>
                 <!-- 내가 담은 목록 끝 -->
 
@@ -61,15 +59,15 @@
                         <div class="col-md-12">
                             <div class="mb-3 mt-3 form-group">
                                 이름 <input id="name" name="name" type="text" class="form-control"
-                                          placeholder="이름을 입력하세요">
+                                          value="{{buyForm.uName}}" disabled>
                             </div>
                             <div class="mb-3 mt-3 form-group">
                                 주소 <input id="address" name="address" type="text" class="form-control"
-                                          placeholder="주소를 입력하세요">
+                                          value="{{buyForm.address}}" disabled>
                             </div>
                             <div class="mb-3 mt-3 form-group">
                                 전화번호 <input id="phone" name="phone" type="text" class="form-control"
-                                            placeholder="번호를 입력하세요">
+                                            value="{{buyForm.phone}}" disabled>
                             </div>
                         </div>
 
@@ -79,12 +77,15 @@
                         <h4 class="mb-3">[ 결제 방법 ]</h4>
                         <div class="my-3">
                             <div class="form-check">
-                                <input id="credit" name="payment" type="radio" class="form-check-input">
+                                <input id="credit" name="payment" type="radio" class="form-check-input"
+                                       {{#buyForm.isCredit}}checked{{/buyForm.isCredit}}>
                                 <label class="form-check-label" for="credit">신용카드</label>
                             </div>
 
+
                             <div class="form-check">
-                                <input id="cash" name="payment" type="radio" class="form-check-input">
+                                <input id="cash" name="payment" type="radio" class="form-check-input"
+                                       {{#buyForm.isAccount}}checked{{/buyForm.isAccount}}>
                                 <label class="form-check-label" for="cash">계좌이체</label>
                             </div>
                         </div>
@@ -96,17 +97,33 @@
                     <hr class="my-4">
                     <h4 class="mb-3">[ 배송 현황 ]</h4>
 
-                        <div class="list-group-item d-flex justify-content-between lh-sm custom-primary" style="border-radius: 20px">
-                                <br>
-                                <h6 class="my-0">배송중</h6>
-                                <br>
-                        </div>
+                    <div class="list-group-item d-flex justify-content-between lh-sm custom-primary"
+                         style="border-radius: 20px">
+                        <br>
+                        <h6 class="my-0">배송중</h6>
+                        <br>
+                    </div>
 
+                    <br>
+                    <hr class="my-4">
+                    <br>
+
+                    <button class="w-50 btn btn-danger btn-lg mx-auto d-block" type="submit">주문취소</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <br><br><br><br>
+
+<script>
+    // 라디오 버튼 클릭 이벤트를 차단합니다.
+    document.querySelectorAll('input[name="payment"]').forEach(function(input) {
+        input.addEventListener('click', function(event) {
+            event.preventDefault();
+        });
+    });
+</script>
 
 {{> layout/footer}}

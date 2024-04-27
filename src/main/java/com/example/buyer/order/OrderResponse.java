@@ -7,6 +7,52 @@ import java.time.LocalDate;
 
 public class OrderResponse {
 
+    @Data
+    public static class BuyFormDTO {
+        private Integer id;     //order id
+        private Integer buyQty;     //주문한 수량
+        private Integer productId;     //상품 id
+        private Integer sum;        //총합
+        private String payment;
+        private Integer userId;     //user id
+
+        private String uName;    //성함
+        private String address;
+        private String phone;
+
+        private String pName;   //상품명
+        private Integer price;  //상품 가격
+
+        //라디오 버튼용
+        private Boolean isCredit = false;
+        private Boolean isAccount = false;
+
+        @Builder
+        public BuyFormDTO(Integer id, Integer buyQty, Integer productId, Integer sum, String payment, Integer userId, String uName, String address, String phone, String pName, Integer price) {
+            this.id = id;
+            this.buyQty = buyQty;
+            this.productId = productId;
+            this.sum = sum;
+            this.payment = payment;
+            this.userId = userId;
+            this.uName = uName;
+            this.address = address;
+            this.phone = phone;
+            this.pName = pName;
+            this.price = price;
+            payCheck();
+
+        }
+
+        public void payCheck() {
+            if ("계좌이체".equals(payment)) {
+                this.isAccount = true;
+            } if ("신용카드".equals(payment)) {
+                this.isCredit = true;
+            }
+        }
+
+    }
 
 
     //내 구매목록 DTO

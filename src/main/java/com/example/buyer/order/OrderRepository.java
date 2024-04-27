@@ -68,6 +68,51 @@ public class OrderRepository {
         query.executeUpdate();
     }
 
+    //주문내역 폼 (my-buy-form) 조회용
+    public OrderResponse.BuyFormDTO findBuyForm(Integer orderId) {
+        String q = """
+                select o.id, o.buy_qty, o.product_id, o.sum, o.payment, o.user_id, 
+                u.name uName, u.address, u.phone, p.name pName, p.price 
+                from order_tb o 
+                inner join user_tb u on o.user_id = u.id 
+                inner join product_tb p on o.product_id = p.id 
+                where o.id = ?;
+                """;
+
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, orderId);
+
+        Object[] row = (Object[]) query.getSingleResult();
+        Integer id = (Integer) row[0];
+        Integer buyQty = (Integer) row[1];
+        Integer productId = (Integer) row[2];
+        Integer sum = (Integer) row[3];
+        String payment = (String) row[4];
+        Integer userId = (Integer) row[5];
+        String uName = (String) row[6];
+        String address = (String) row[7];
+        String phone = (String) row[8];
+        String pName = (String) row[9];
+        Integer price = (Integer) row[10];
+
+        OrderResponse.BuyFormDTO buyForm = OrderResponse.BuyFormDTO.builder()
+                .id(id)
+                .buyQty(buyQty)
+                .productId(productId)
+                .sum(sum)
+                .payment(payment)
+                .userId(userId)
+                .uName(uName)
+                .address(address)
+                .phone(phone)
+                .pName(pName)
+                .price(price)
+                .build();
+
+        return buyForm;
+
+    }
+
 
     // TODO: 돌아가는지 테스트 좀 하고 써라! 까먹지마~!!
     //buy-list 조회용
@@ -81,7 +126,7 @@ public class OrderRepository {
         Query query = em.createNativeQuery(q);
 
         //Object 배열 타입으로 받아야함.
-        List<Object[]> rows = (List<Object[]>) query.getResultList();
+        List<Object[]> rows = query.getResultList();
         List<OrderResponse.ListDTO> orderList = new ArrayList<>();
 
         for (Object[] row : rows) {

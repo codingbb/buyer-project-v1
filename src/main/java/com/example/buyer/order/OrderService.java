@@ -14,6 +14,17 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderRepository orderRepo;
 
+    //내 주문 내역 폼 my-buy-form
+    public OrderResponse.BuyFormDTO findBuyForm(Integer orderId) {
+        OrderResponse.BuyFormDTO findBuyForm = orderRepo.findBuyForm(orderId);
+
+        System.out.println("dto 값 확인용!! " + findBuyForm);
+
+        return findBuyForm;
+    }
+
+
+    //주문폼 orderViewForm
     public OrderRequest.ViewDTO viewForm(Integer sessionUserId, Integer productId, Integer buyQty) {
         User user = orderRepo.findByUserId(sessionUserId);
         Product product = orderRepo.findByProductId(productId);
@@ -21,19 +32,6 @@ public class OrderService {
         Integer sum = buyQty * product.getPrice();
 
         return new OrderRequest.ViewDTO(user, product, buyQty, sum);
-    }
-
-
-    // 세션에서 유저 조회
-    public User findByUserId(Integer id) {
-        User user = orderRepo.findByUserId(id);
-        return user;
-    }
-
-    // 상품 조회
-    public Product findByProductId(Integer id) {
-        Product product = orderRepo.findByProductId(id);
-        return product;
     }
 
 
