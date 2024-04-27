@@ -1,11 +1,13 @@
 package com.example.buyer.product;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,23 +17,6 @@ public class ProductController {
     private final ProductService productService;
 
     //TODO: main에 수량은 필요 없는데 자꾸 값이 나온다. dto에서 제외하자
-
-
-    //장바구니 GET 요청용
-    @GetMapping("/cart-form")
-    public String cartForm() {
-
-        return "/order/cart-form";
-    }
-
-
-    //장바구니
-    @PostMapping("/cart-form")
-    public String cartAdd() {
-
-        return "/order/cart-form";
-    }
-
 
     //상품목록보기
     @GetMapping("/product-list")

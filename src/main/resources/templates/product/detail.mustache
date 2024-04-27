@@ -33,15 +33,18 @@
 
             </form>
 
-            <form action="/cart-form" method="post">
+            <form action="/cart" method="post">
+                <input type="hidden" name="productId" value="{{product.id}}">
+                <!--  hidden이라서 값 반영이 동적으로 안 된다는 듯.. 자바 스크립트로 연결시켜서 가져와야함 -->
+                <input type="hidden" name="buyQty" class="form-control" value="1">
                 <button type="submit" class="btn btn-success mt-3">장바구니</button>
             </form>
         </div>
 
-        </div>
-        <!-- 구매하기 장바구니 버튼 끝 -->
-
     </div>
+    <!-- 구매하기 장바구니 버튼 끝 -->
+
+</div>
 </div>
 
 <br><br><br>
@@ -95,5 +98,22 @@
 </div>
 
 <script src="/js/detail.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 구매수량 입력 필드 선택
+        const buyQtyInput = document.querySelector('input[name="buyQty"]');
+
+        // 장바구니 폼의 buyQty 입력 필드 선택
+        const cartBuyQtyInput = document.querySelector('form[action="/cart"] input[name="buyQty"]');
+
+        // 구매수량 입력 필드의 값이 변경될 때마다 실행
+        buyQtyInput.addEventListener('change', function () {
+            // 장바구니 폼의 buyQty 입력 필드의 값을 현재 구매수량 입력 필드의 값으로 설정
+            cartBuyQtyInput.value = this.value;
+        });
+    });
+</script>
+
 
 {{> layout/footer}}

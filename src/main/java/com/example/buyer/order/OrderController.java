@@ -70,7 +70,7 @@ public class OrderController {
 
         //dto 사용해서 한 번에 다 담기
         OrderRequest.ViewDTO dto = orderService.viewForm(sessionUser.getId(), productId, buyQty);
-//        System.out.println("주문폼 dto 값 확인 : " + dto);
+        System.out.println("주문폼 dto 값 확인 : " + dto);
         request.setAttribute("order", dto);
 
 
