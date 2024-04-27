@@ -7,6 +7,15 @@ import lombok.Data;
 
 public class OrderRequest {
 
+    //주문 취소용 정보 받는 dto
+    @Data
+    public static class CancelDTO {
+        private Integer orderId;
+        private Integer buyQty;
+        private String status;
+    }
+
+
     //주문 폼 DTO
     @Data
     public static class ViewDTO {

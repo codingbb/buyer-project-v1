@@ -70,6 +70,9 @@ public class OrderResponse {
         private String name;
         private Integer indexNum;
 
+        //버튼 구분이 안가서.. 색 변경하려고 넣어줌
+        private String buttonColor;
+
         @Builder
         public ListDTO(Integer id, Integer userId, Integer buyQty, String payment, Integer sum, String status, LocalDate createdAt, String name, Integer indexNum) {
             this.id = id;
@@ -81,7 +84,18 @@ public class OrderResponse {
             this.createdAt = createdAt;
             this.name = name;
             this.indexNum = indexNum;
+            buttonColor();
         }
+
+        //버튼 변경 클래스 용~
+        public void buttonColor() {
+             this.buttonColor = "btn btn-primary";
+            if ("주문취소".equals(status)) {
+                buttonColor = "btn btn-danger";
+            }
+
+        }
+
     }
 
 }

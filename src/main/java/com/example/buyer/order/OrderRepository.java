@@ -18,10 +18,24 @@ import java.util.List;
 public class OrderRepository {
     private final EntityManager em;
 
-    //주문 취소 쿼리문 (update 쓰자)
+    //주문 취소 쿼리문 join 쓰고싶어서 씀 (product_tb 수량 변경, order_tb 상태값 변경)
+    public void orderCancel(OrderRequest.CancelDTO requestDTO) {
+        String q = """
+                update order_tb o 
+                inner join product_tb p on o.product_id = p.id 
+                set o.status = ?, p.qty = qty + ? where o.id = ?;
+                """;
+
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, requestDTO.getStatus());
+        query.setParameter(2, requestDTO.getBuyQty());
+        query.setParameter(3, requestDTO.getOrderId());
+        query.executeUpdate();
+
+    }
 
 
-    //TODO: 만약 똑같은 쿼리문을 UserRepository에서 사용한다고 하면 그걸 끌어와서 써야하는지? 아닐거같은데
+    //TODO: 만약 똑같은 쿼리문을 UserRepository에서 사용한다고 하면 그걸 끌어와서 써야하는지?
     // 유저 조회
     public User findByUserId(Integer id) {
         String q = """

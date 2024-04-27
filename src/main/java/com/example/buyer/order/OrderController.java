@@ -22,9 +22,10 @@ public class OrderController {
     private final HttpSession session;
 
     @PostMapping("/order-cancel")
-    public String orderCancel() {
-
-        return "redirect:/";
+    public String orderCancel(OrderRequest.CancelDTO requestDTO) {
+//        System.out.println("주문 취소 DTO : " + requestDTO);
+        orderService.orderCancel(requestDTO);
+        return "redirect:/buy-list";
     }
 
 
@@ -39,6 +40,7 @@ public class OrderController {
     @GetMapping("/my-buy-form")
     public String myBuyForm(HttpServletRequest request, @RequestParam Integer orderId) {
         OrderResponse.BuyFormDTO findBuyForm = orderService.findBuyForm(orderId);
+        System.out.println("바이폼!! : " + findBuyForm);
         request.setAttribute("buyForm", findBuyForm);
         return "/order/my-buy-form";
     }
@@ -50,7 +52,7 @@ public class OrderController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<OrderResponse.ListDTO> orderList = orderService.findListAll(sessionUser.getId());
-//        System.out.println("오더 리스트 여기! : " + orderList);
+        System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 
         return "/order/buy-list";
