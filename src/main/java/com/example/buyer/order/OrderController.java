@@ -30,13 +30,7 @@ public class OrderController {
     }
 
 
-    //장바구니
-    @GetMapping("/cart-form")
-    public String cartForm() {
-
-        return "/order/cart-form";
-    }
-
+    //TODO: url에 날아가는거 맘에 안드는디
     //내가 주문한 상품 확인 폼 //주문한 내역이 나와야함
     @GetMapping("/my-buy-form")
     public String myBuyForm(HttpServletRequest request, @RequestParam Integer orderId) {
