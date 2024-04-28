@@ -19,6 +19,7 @@ public class CartController {
     private final CartService cartService;
     private final HttpSession session;
 
+    //TODO: 버튼으로 변경 누르는 것 말고, 실시간으로 수량 체크하면서 반영하는건 AJAX 써야겠지요?
     //장바구니 수량 변경
     @PostMapping("/cart/update")
     public String cartUpdate(CartRequest.UpdateDTO requestDTO) {
