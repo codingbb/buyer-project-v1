@@ -61,14 +61,11 @@
                 </td>
                 <td>{{pName}}</td>
                 <td class="price">{{price}}</td>
-                <form action="/cart/update" method="post">
-                    <td class="buyQty">
-                        <input type="hidden" name="cartId" value="{{id}}">
-                        <input name="buyQty" type="number" class="form-control custom-width"
-                               value="{{buyQty}}" style="margin-bottom: 3%;">
-                        <button type="submit" class="btn btn-primary">변경</button>
-                    </td>
-                </form>
+                <td class="buyQty">
+                    <input type="hidden" name="cartId" value="{{id}}">
+                    <input name="buyQty" type="number" class="form-control custom-width buyQty-change"
+                           value="{{buyQty}}" style="margin-bottom: 3%;">
+                </td>
                 <td>
                     <div class="new-create-button">
                         <form action="/cart/{{id}}/delete" method="post">
@@ -94,7 +91,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="flex-fill">
                     <span style="padding-right: 40px;">합계 (원)</span>
-                    <strong class="sum">14000</strong>
+                    <strong class="sum">0</strong>
                 </div>
                 <a href="/order-form" class="ml-auto">
                     <button type="button" class="btn btn-primary">구매하기</button>
@@ -110,15 +107,32 @@
 
 <div style="margin-bottom: 15%"></div>
 
+<!--실시간 수량 반영 !! -->
 <script>
-    $.ajax({
+    $(document).ready(function () {
+        $('.buyQty-change').on('change', function () {
+            // cartId가 hidden이라 업데이트 쿼리문이 날아가도 db반영이 안되는 듯함
+            //정확한 위치에서 빼오자
+            var cartId = $(this).closest('tr').find('input[name="cartId"]').val(); // 수정한 항목 id 가져오기
+            var buyQty = $(this).val();     //수정된 수량 가져오기
 
-    }).done((res)=>{
+            $.ajax({
+                method: "POST",
+                url: "/cart/update",
+                data: {
+                    cartId: cartId,
+                    buyQty: buyQty,
+                }
 
-    }).fail((res)=>{
+            }).done((res) => {
+                setTotal();
 
+            }).fail((res) => {
+                alert("오류가 발생했습니다.");
+
+            });
+        });
     });
-
 
 </script>
 
