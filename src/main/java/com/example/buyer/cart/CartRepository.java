@@ -7,17 +7,28 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Repository
 public class CartRepository {
     private final EntityManager em;
 
+    //장바구니 삭제
+    public void deleteById(Integer id) {
+        String q = """
+                delete from cart_tb where id = ?
+                """;
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, id);
+        query.executeUpdate();
+
+    }
+
+
     //장바구니 목록 보기
     public List<CartResponse.CartDTO> findAll() {
         String q = """
-                select c.buy_qty, p.img_file_name, p.name, p.price from cart_tb c 
+                select c.id, c.buy_qty, p.img_file_name, p.name, p.price from cart_tb c 
                 inner join product_tb p 
                 on c.product_id = p.id 
                 order by c.id desc;
@@ -28,12 +39,14 @@ public class CartRepository {
         List<CartResponse.CartDTO> cartList = new ArrayList<>();
 
         for (Object[] row : rows) {
-            Integer buyQty = (Integer) row[0];
-            String imgFileName = (String) row[1];
-            String pName = (String) row[2];
-            Integer price = (Integer) row[3];
+            Integer id = (Integer) row[0];
+            Integer buyQty = (Integer) row[1];
+            String imgFileName = (String) row[2];
+            String pName = (String) row[3];
+            Integer price = (Integer) row[4];
 
             CartResponse.CartDTO cartDTO = CartResponse.CartDTO.builder()
+                    .id(id)
                     .buyQty(buyQty)
                     .imgFileName(imgFileName)
                     .pName(pName)
@@ -44,7 +57,7 @@ public class CartRepository {
 
         }
 
-        System.out.println("레파 : " + cartList);
+//        System.out.println("레파 : " + cartList);
 
         return cartList;
     }

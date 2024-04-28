@@ -14,6 +14,14 @@ import java.util.List;
 public class CartService {
     private final CartRepository cartRepo;
 
+    //장바구니 삭제하기
+    @Transactional
+    public void deleteById(Integer id) {
+        cartRepo.deleteById(id);
+
+    }
+
+
     //장바구니 목록 보기
     public List<CartResponse.CartDTO> findAll() {
         List<CartResponse.CartDTO> cartList = cartRepo.findAll();
