@@ -19,8 +19,14 @@ public class CartController {
     private final CartService cartService;
     private final HttpSession session;
 
-    //TODO : 같은 상품인 경우 수량만 증가하도록 해야함 + 폼 수정도
-    //TODO : GetMapping으로 되는데 PostMapping으로 order 걸어놓은거 많다! 고쳐라!!
+    //장바구니 수량 변경
+    @PostMapping("/cart/update")
+    public String cartUpdate(CartRequest.UpdateDTO requestDTO) {
+//        System.out.println(requestDTO);
+        cartService.updateQty(requestDTO);
+        return "redirect:/cart-form";
+    }
+
 
     //장바구나 삭제 -> 보관할 필요 없을 것 같아서 delete로 함
     @PostMapping("/cart/{id}/delete")

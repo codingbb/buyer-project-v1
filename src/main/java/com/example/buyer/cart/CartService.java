@@ -15,6 +15,13 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepo;
 
+    //장바구니 수량 변경
+    @Transactional
+    public void updateQty(CartRequest.UpdateDTO requestDTO) {
+        cartRepo.updateQty(requestDTO);
+    }
+
+
     //장바구니 삭제하기
     @Transactional
     public void deleteById(Integer id) {

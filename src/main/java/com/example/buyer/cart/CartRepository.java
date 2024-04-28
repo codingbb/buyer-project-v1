@@ -5,6 +5,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,18 @@ import java.util.List;
 @Repository
 public class CartRepository {
     private final EntityManager em;
+
+    //장바구니 수량 변경
+    public void updateQty(CartRequest.UpdateDTO requestDTO) {
+        String q = """
+                update cart_tb set buy_qty = ? where id = ?
+                """;
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, requestDTO.getBuyQty());
+        query.setParameter(2, requestDTO.getCartId());
+        query.executeUpdate();
+    }
+
 
     //장바구니 삭제
     public void deleteById(Integer id) {
@@ -68,7 +81,7 @@ public class CartRepository {
     }
 
 
-    //장바구니 담기
+    //장바구니 담기(추가)
     public void save(Integer userId, Integer productId, Integer buyQty) {
         String q = """
                 insert into cart_tb (user_id, product_id, buy_qty, created_at) values (?, ?, ?, now())

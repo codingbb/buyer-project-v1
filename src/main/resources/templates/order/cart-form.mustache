@@ -61,10 +61,14 @@
                 </td>
                 <td>{{pName}}</td>
                 <td class="price">{{price}}</td>
-                <td class="buyQty">
-                    <input name="buyQty" type="number" class="form-control custom-width"
-                           value="{{buyQty}}">
-                </td>
+                <form action="/cart/update" method="post">
+                    <td class="buyQty">
+                        <input type="hidden" name="cartId" value="{{id}}">
+                        <input name="buyQty" type="number" class="form-control custom-width"
+                               value="{{buyQty}}" style="margin-bottom: 3%;">
+                        <button type="submit" class="btn btn-primary">변경</button>
+                    </td>
+                </form>
                 <td>
                     <div class="new-create-button">
                         <form action="/cart/{{id}}/delete" method="post">
