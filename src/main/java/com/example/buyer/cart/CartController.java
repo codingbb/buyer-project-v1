@@ -30,15 +30,20 @@ public class CartController {
     }
 
 
-    //장바구니
+    //장바구니에 담기
     @PostMapping("/cart")
     public String cartAdd(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        cartService.save(sessionUser.getId(), productId, buyQty);
 
-        return "redirect:/cart-form";
+        Boolean cart = cartService.save(sessionUser.getId(), productId, buyQty);
+
+        if (cart == true) {
+            return "redirect:/cart-form";
+        } else {
+            return "/err/duplication";
+        }
+
     }
-
 
     //TODO : 중복 물품 담기는거 막자 !
     //장바구니 폼

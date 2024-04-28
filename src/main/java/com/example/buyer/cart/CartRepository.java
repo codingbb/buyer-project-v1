@@ -1,6 +1,7 @@
 package com.example.buyer.cart;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,7 @@ public class CartRepository {
     //장바구니 목록 보기
     public List<CartResponse.CartDTO> findAll() {
         String q = """
-                select c.id, c.buy_qty, p.img_file_name, p.name, p.price from cart_tb c 
+                select c.id, c.buy_qty, p.img_file_name, p.id, p.name, p.price from cart_tb c 
                 inner join product_tb p 
                 on c.product_id = p.id 
                 order by c.id desc;
@@ -42,13 +43,15 @@ public class CartRepository {
             Integer id = (Integer) row[0];
             Integer buyQty = (Integer) row[1];
             String imgFileName = (String) row[2];
-            String pName = (String) row[3];
-            Integer price = (Integer) row[4];
+            Integer productId = (Integer) row[3];
+            String pName = (String) row[4];
+            Integer price = (Integer) row[5];
 
             CartResponse.CartDTO cartDTO = CartResponse.CartDTO.builder()
                     .id(id)
                     .buyQty(buyQty)
                     .imgFileName(imgFileName)
+                    .productId(productId)
                     .pName(pName)
                     .price(price)
                     .build();
@@ -76,4 +79,20 @@ public class CartRepository {
 
     }
 
+    //장바구니 중복 체크용
+    public Cart findByUserAndProductId(Integer userId, Integer productId) {
+        try {
+            String q = """
+                    select * from cart_tb where user_id = ? and product_id = ?
+                    """;
+            Query query = em.createNativeQuery(q, Cart.class);
+            query.setParameter(1, userId);
+            query.setParameter(2, productId);
+            Cart cartList = (Cart) query.getSingleResult();
+            return cartList;
+
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
