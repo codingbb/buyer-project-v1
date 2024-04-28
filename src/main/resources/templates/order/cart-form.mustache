@@ -53,16 +53,17 @@
         {{#cartList}}
             <tr class="offer-table">
                 <td>
-                    <input type="checkbox" name="itemCheck" id="itemCheck" class="item-checkbox">
+                    <input type="checkbox" name="itemCheck" id="itemCheck" class="item-checkbox" checked="checked">
                 </td>
                 <td>
                     <img src="http://localhost:8080/upload/{{imgFileName}}" width="100"
                          height="100" style="border-radius: 5%">
                 </td>
                 <td>{{pName}}</td>
-                <td class="sum">{{price}}</td>
+                <td class="price">{{price}}</td>
                 <td class="buyQty">
-                    <input name="buyQty" type="number" class="form-control custom-width" value="{{buyQty}}">
+                    <input name="buyQty" type="number" class="form-control custom-width"
+                           value="{{buyQty}}">
                 </td>
                 <td>
                     <div class="new-create-button">
@@ -89,7 +90,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="flex-fill">
                     <span style="padding-right: 40px;">합계 (원)</span>
-                    <strong>14000</strong>
+                    <strong class="sum">14000</strong>
                 </div>
                 <a href="/order-form" class="ml-auto">
                     <button type="button" class="btn btn-primary">구매하기</button>
@@ -105,35 +106,10 @@
 
 <div style="margin-bottom: 15%"></div>
 
+
+<script src="/js/sum-calculate.js"></script>
 <script src="/js/list.js"></script>
-
-<script>
-    <!--    checkAll 체크하면 모두 다 선택되게 -->
-    document.getElementById('checkAll').addEventListener('change', function () {
-        var isChecked = this.checked;
-
-        // '.item-checkbox' 클래스를 가진 모든 요소를 선택
-        var checkboxes = document.querySelectorAll('.item-checkbox');
-        // 각 체크박스에 대해 루프를 돌며 checkAll의 상태에 맞춰 체크 상태를 변경
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = isChecked;
-        });
-    });
-
-    // 모든 .item-checkbox 체크박스에 대해 change 이벤트 리스너 추가
-    var itemCheckboxes = document.querySelectorAll('.item-checkbox');
-    itemCheckboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            // .item-checkbox 중 하나라도 체크 해제되면 checkAll 체크박스 해제
-            var allChecked = Array.from(itemCheckboxes).every(function (item) {
-                return item.checked;
-            });
-
-            document.getElementById('checkAll').checked = allChecked;
-        });
-    });
-
-</script>
+<script src="/js/check-all.js"></script>
 
 
 {{> layout/footer}}

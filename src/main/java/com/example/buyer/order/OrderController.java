@@ -63,8 +63,8 @@ public class OrderController {
 
     }
 
-    // 주문폼
-    @PostMapping("/order-form")
+    // 주문폼 //Get 요청이겠지?
+    @GetMapping("/order-form")
     public String orderForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 

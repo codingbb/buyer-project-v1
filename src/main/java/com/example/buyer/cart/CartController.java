@@ -45,7 +45,6 @@ public class CartController {
 
     }
 
-    //TODO : 중복 물품 담기는거 막자 !
     //장바구니 폼
     @GetMapping("/cart-form")
     public String cartForm(HttpServletRequest request) {
