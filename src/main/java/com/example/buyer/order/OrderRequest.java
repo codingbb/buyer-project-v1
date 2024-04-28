@@ -7,6 +7,15 @@ import lombok.Data;
 
 public class OrderRequest {
 
+    //되나?
+    @Data
+    public static class productAndQtyDTO {
+        private Integer productId;
+        private Integer buyQty;
+
+    }
+
+
     //주문 취소용 정보 받는 dto
     @Data
     public static class CancelDTO {
@@ -33,6 +42,9 @@ public class OrderRequest {
         //주문한 상품 수량
         private Integer buyQty;
         private Integer sum;
+
+        //cart 부분
+        private Integer cartId;
 
         @Builder
         public ViewDTO(User user, Product product, Integer buyQty, Integer sum) {
@@ -66,6 +78,7 @@ public class OrderRequest {
         //order에 넣는 부분
         private Integer sum; //합계
         private String status;
+
 
     }
 

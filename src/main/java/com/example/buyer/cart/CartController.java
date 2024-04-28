@@ -58,7 +58,7 @@ public class CartController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<CartResponse.CartDTO> cartList = cartService.findAll(sessionUser.getId());
-//        System.out.println(cartList);
+        System.out.println("카트리스트 " + cartList);
         request.setAttribute("cartList", cartList);
 
         return "/order/cart-form";

@@ -31,7 +31,7 @@ public class OrderService {
     }
 
 
-    //주문폼 orderViewForm
+    //주문폼 orderViewForm //responseDTO인가 ? ? ?
     public OrderRequest.ViewDTO viewForm(Integer sessionUserId, Integer productId, Integer buyQty) {
         User user = orderRepo.findByUserId(sessionUserId);
         Product product = orderRepo.findByProductId(productId);
@@ -47,6 +47,8 @@ public class OrderService {
     public void saveOrder(OrderRequest.DTO requestDTO) {
         orderRepo.save(requestDTO);
         orderRepo.updateQty(requestDTO);
+
+
 
     }
 
