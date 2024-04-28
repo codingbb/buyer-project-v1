@@ -27,80 +27,65 @@
 </style>
 
 <div class="container">
-    <table class="table table-hover offer-table scroll" style="text-align: center; border-top:2px solid #ddd">
-        <br>
-        <h2>장바구니</h2>
-        <br>
-
-        <!--        목록 -->
-        <thead>
-        <tr>
-            <th class="center-align col-1">
-                <input type="checkbox" id="checkAll" name="checkAll" class="item-checkbox">
-            </th>
-            <th class="center-align col-2">사진</th>
-            <th class="center-align col-2">상품명</th>
-            <th class="center-align col-2">상품가격</th>
-            <th class="center-align col-2">상품수량</th>
-            <th class="center-align col-2"></th>
-        </tr>
-        </thead>
-        <!--        목록 끝-->
-
-        <!--        상품 테이블-->
-
-        <tbody>
-        {{#cartList}}
-            <tr class="offer-table">
-                <td>
-                    <input type="checkbox" name="itemCheck" id="itemCheck" class="item-checkbox" checked="checked">
-                </td>
-                <td>
-                    <img src="http://localhost:8080/upload/{{imgFileName}}" width="100"
-                         height="100" style="border-radius: 5%">
-                </td>
-                <td>{{pName}}</td>
-                <td class="price">{{price}}</td>
-                <td class="buyQty">
-                    <input type="hidden" name="cartId" value="{{id}}">
-                    <input name="buyQty" type="number" class="form-control custom-width buyQty-change"
-                           value="{{buyQty}}" style="margin-bottom: 3%;">
-                </td>
-                <td>
-                    <div class="new-create-button">
-                        <form action="/cart/{{id}}/delete" method="post">
-                            <button type="submit" class="btn btn-outline-danger">삭제하기</button>
-                        </form>
-                    </div>
-                </td>
+    <h2>장바구니</h2>
+    <!-- 상품 테이블 시작 -->
+    <form action="/order-form" method="get" class="needs-validation" novalidate="">
+        <table class="table table-hover offer-table scroll" style="text-align: center; border-top:2px solid #ddd">
+            <thead>
+            <tr>
+                <th class="center-align col-1">
+                    <input type="checkbox" id="checkAll" name="checkAll" class="item-checkbox">
+                </th>
+                <th class="center-align col-2">사진</th>
+                <th class="center-align col-2">상품명</th>
+                <th class="center-align col-2">상품가격</th>
+                <th class="center-align col-2">상품수량</th>
+                <th class="center-align col-2"></th>
             </tr>
-        {{/cartList}}
-        </tbody>
+            </thead>
+            <tbody>
+            {{#cartList}}
+                <tr class="offer-table">
+                    <input type="hidden" name="productId" value="{{productId}}">
+                    <td>
+                        <input type="checkbox" name="itemCheck" id="itemCheck" class="item-checkbox" checked="checked">
+                    </td>
+                    <td>
+                        <img src="http://localhost:8080/upload/{{imgFileName}}" width="100"
+                             height="100" style="border-radius: 5%">
+                    </td>
+                    <td>{{pName}}</td>
+                    <td class="price">{{price}}</td>
+                    <td class="buyQty">
+                        <input type="hidden" name="cartId" value="{{id}}">
+                        <input name="buyQty" type="number" class="form-control custom-width buyQty-change"
+                               value="{{buyQty}}" style="margin-bottom: 3%;">
+                    </td>
+                    <td>
+                        <!-- 삭제 버튼 처리는 JavaScript 등을 통해 외부에서 처리 -->
+                        <button type="button" class="btn btn-outline-danger" onclick="deleteCartItem({{id}})">삭제하기
+                        </button>
+                    </td>
+                </tr>
+            {{/cartList}}
+            </tbody>
+        </table>
+        <br>
+        <div class="summary-list" style="width: 30%;">
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="flex-fill">
+                        <span style="padding-right: 40px;">합계 (원)</span>
+                        <strong class="sum">0</strong>
+                    </div>
+                    <button type="submit" class="btn btn-primary">구매하기</button>
+                </li>
 
-        <!--        상품 테이블 끝-->
+            </ul>
 
-    </table>
-
-    <br>
-
-    <!-- 내가 담은 목록 -->
-    <div class="summary-list" style="width: 30%;">
-        <!-- 목록 리스트 1-->
-        <ul class="list-group mb-3">
-            <!-- 합계와 구매하기 버튼을 포함하는 항목 -->
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="flex-fill">
-                    <span style="padding-right: 40px;">합계 (원)</span>
-                    <strong class="sum">0</strong>
-                </div>
-                <a href="/order-form" class="ml-auto">
-                    <button type="button" class="btn btn-primary">구매하기</button>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- 내가 담은 목록 끝 -->
-
+        </div>
+        <!-- 내가 담은 목록 끝 -->
+    </form>
 
 </div>
 
