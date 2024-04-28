@@ -29,7 +29,7 @@ public class CartRepository {
     //장바구니 목록 보기
     public List<CartResponse.CartDTO> findAll() {
         String q = """
-                select c.id, c.buy_qty, p.img_file_name, p.id, p.name, p.price from cart_tb c 
+                select c.id, c.user_id, c.buy_qty, p.img_file_name, p.id, p.name, p.price from cart_tb c 
                 inner join product_tb p 
                 on c.product_id = p.id 
                 order by c.id desc;
@@ -41,14 +41,16 @@ public class CartRepository {
 
         for (Object[] row : rows) {
             Integer id = (Integer) row[0];
-            Integer buyQty = (Integer) row[1];
-            String imgFileName = (String) row[2];
-            Integer productId = (Integer) row[3];
-            String pName = (String) row[4];
-            Integer price = (Integer) row[5];
+            Integer userId = (Integer) row[1];
+            Integer buyQty = (Integer) row[2];
+            String imgFileName = (String) row[3];
+            Integer productId = (Integer) row[4];
+            String pName = (String) row[5];
+            Integer price = (Integer) row[6];
 
             CartResponse.CartDTO cartDTO = CartResponse.CartDTO.builder()
                     .id(id)
+                    .userId(userId)
                     .buyQty(buyQty)
                     .imgFileName(imgFileName)
                     .productId(productId)

@@ -10,6 +10,7 @@ public class CartResponse {
     @Data
     public static class CartDTO {
         private Integer id; //cart id
+        private Integer userId;     //유저id
         private Integer buyQty;
         private String imgFileName;
         private Integer productId;  //상품 id
@@ -17,8 +18,9 @@ public class CartResponse {
         private Integer price;
 
         @Builder
-        public CartDTO(Integer id, Integer buyQty, String imgFileName, Integer productId, String pName, Integer price) {
+        public CartDTO(Integer id, Integer userId, Integer buyQty, String imgFileName, Integer productId, String pName, Integer price) {
             this.id = id;
+            this.userId = userId;
             this.buyQty = buyQty;
             this.imgFileName = imgFileName;
             this.productId = productId;

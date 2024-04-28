@@ -24,12 +24,17 @@ public class CartService {
 
 
     //장바구니 목록 보기
-    public List<CartResponse.CartDTO> findAll() {
+    public List<CartResponse.CartDTO> findAll(Integer sessionUserId) {
         List<CartResponse.CartDTO> cartList = cartRepo.findAll();
 
+        //유저별로 장바구니 관리
+        List<CartResponse.CartDTO> userCartList = cartList.stream().filter(cart ->
+                sessionUserId != null && sessionUserId.equals(cart.getUserId()))
+                        .collect(Collectors.toList());
 
-        System.out.println(cartList);
-        return cartList;
+//        System.out.println("카트리스트~ " + cartList);
+
+        return userCartList;
     }
 
 
@@ -38,6 +43,7 @@ public class CartService {
     public Boolean save(Integer userId, Integer productId, Integer buyQty) {
         Cart cart = cartRepo.findByUserAndProductId(userId, productId);
 
+        //장바구니에 중복된 상품이 들어오면 저장 안되어야함
 //        if (cart.getUserId().equals(userId) && cart.getProductId().equals(productId)) {
         if (cart != null) {
             return false;

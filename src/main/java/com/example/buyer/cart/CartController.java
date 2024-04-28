@@ -49,8 +49,10 @@ public class CartController {
     //장바구니 폼
     @GetMapping("/cart-form")
     public String cartForm(HttpServletRequest request) {
-        List<CartResponse.CartDTO> cartList = cartService.findAll();
-        System.out.println(cartList);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        List<CartResponse.CartDTO> cartList = cartService.findAll(sessionUser.getId());
+//        System.out.println(cartList);
         request.setAttribute("cartList", cartList);
 
         return "/order/cart-form";
