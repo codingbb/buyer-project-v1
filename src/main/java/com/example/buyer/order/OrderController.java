@@ -23,23 +23,23 @@ public class OrderController {
         return "redirect:/order-list";
     }
 
-    //내가 주문한 상품 확인 폼 //주문한 내역이 나와야함
+    //내가 주문한 상품 상세보기 폼 //주문한 내역이 나와야함
     @GetMapping("/order-detail")
-    public String myBuyForm(HttpServletRequest request, @RequestParam Integer orderId) {
+    public String orderDetail(HttpServletRequest request, @RequestParam Integer orderId) {
         OrderResponse.BuyFormDTO orderDetail = orderService.getOrderDetail(orderId);
-//        System.out.println("바이폼!! : " + findBuyForm);
+//        System.out.println("바이폼!! : " + orderDetail);
         //buyForm
         request.setAttribute("orderDetail", orderDetail);
         return "/order/order-detail-form";
     }
 
 
-    //내 구매목록
+    //내 구매목록 리스트
     @GetMapping("/order-list")
-    public String buyList(HttpServletRequest request) {
+    public String orderList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<OrderResponse.ListDTO> orderList = orderService.findListAll(sessionUser.getId());
+        List<OrderResponse.ListDTO> orderList = orderService.getOrderList(sessionUser.getId());
         System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 
@@ -56,24 +56,25 @@ public class OrderController {
 
     }
 
-    @GetMapping("/order-form")
+    // 주문하려는 물품 확인 폼
+    @GetMapping("/order-check-form")
     public String orderForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         //dto 사용해서 한 번에 다 담기
-        OrderRequest.ViewDTO dto = orderService.viewForm(sessionUser.getId(), productId, buyQty);
-        System.out.println("주문폼 dto 값 확인 : " + dto);
-        request.setAttribute("order", dto);
+        OrderRequest.ViewDTO orderCheck = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
+//        System.out.println("주문폼 dto 값 확인 : " + orderCheck);
+        request.setAttribute("order", orderCheck);
 
-        return "/order/order-form";
+        return "/order/order-check-form";
     }
 
     // 주문폼 //Get 요청이겠지?? POST? GET? POST? GET?
-    @PostMapping("/order-form")
-    public String orderFormPost() {
-
-        return "/order/order-form";
-    }
+//    @PostMapping("/order-form")
+//    public String orderFormPost() {
+//
+//        return "/order/order-form";
+//    }
 
 
 }

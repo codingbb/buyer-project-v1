@@ -25,14 +25,14 @@ public class OrderService {
     public OrderResponse.BuyFormDTO getOrderDetail(Integer orderId) {
         OrderResponse.BuyFormDTO orderDetail = orderRepo.findUserProductByOrderId(orderId);
 
-//        System.out.println("dto 값 확인용!! " + findBuyForm);
+//        System.out.println("dto 값 확인용!! " + orderDetail);
 
         return orderDetail;
     }
 
 
     //주문폼 orderViewForm //responseDTO인가 ? ? ?
-    public OrderRequest.ViewDTO viewForm(Integer sessionUserId, Integer productId, Integer buyQty) {
+    public OrderRequest.ViewDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
         User user = orderRepo.findByUserId(sessionUserId);
         Product product = orderRepo.findByProductId(productId);
 
@@ -48,13 +48,11 @@ public class OrderService {
         orderRepo.save(requestDTO);
         orderRepo.updateQty(requestDTO);
 
-
-
     }
 
     //내 구매목록 로직
-    public List<OrderResponse.ListDTO> findListAll(Integer sessionUserId) {
-        List<OrderResponse.ListDTO> orderList = orderRepo.findAllList();
+    public List<OrderResponse.ListDTO> getOrderList(Integer sessionUserId) {
+        List<OrderResponse.ListDTO> orderList = orderRepo.findAllOrder();
 
         //ssar 유저가 구매한 내역만 나와야함
         //필터를 쓰는구나..............!!!!!!!!!!!!!!

@@ -137,7 +137,7 @@ public class OrderRepository {
 
     // TODO: 돌아가는지 테스트 좀 하고 써라! 까먹지마~!!
     //order-list 조회용
-    public List<OrderResponse.ListDTO> findAllList() {
+    public List<OrderResponse.ListDTO> findAllOrder() {
         String q = """
                 select o.id, o.user_id, o.buy_qty, o.payment, o.sum, o.status, o.created_at, p.name 
                 from order_tb o 
