@@ -57,13 +57,13 @@ public class OrderController {
 
     // 주문하려는 물품 확인 폼
     @GetMapping("/order-save-form")
-    public String orderCheckForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
+    public String orderCheckForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        //dto 사용해서 한 번에 다 담기
-        OrderResponse.SaveFormDTO orderCheck = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
-//        System.out.println("주문폼 dto 값 확인 : " + orderCheck);
-        request.setAttribute("order", orderCheck);
+        // orderService.내장바구니내역(sessionUser.getId());
+
+        // request 담기
+
 
         return "/order/order-save-form";
     }

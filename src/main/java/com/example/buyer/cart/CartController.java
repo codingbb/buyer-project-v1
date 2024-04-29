@@ -19,15 +19,6 @@ public class CartController {
     private final HttpSession session;
 
 
-    //장바구니 수량 변경
-    @PostMapping("/cart/update")
-    public String update(CartRequest.UpdateDTO requestDTO) {
-//        System.out.println(requestDTO);
-        cartService.updateQty(requestDTO);
-
-        return "redirect:/cart-form";
-    }
-
 
     //장바구나 삭제 -> 보관할 필요 없을 것 같아서 delete로 함
     @PostMapping("/cart/{id}/delete")
@@ -36,21 +27,33 @@ public class CartController {
         return "redirect:/cart-form";
     }
 
+    @PostMapping("/cart/update")
+    public @ResponseBody String save(@RequestBody List<CartRequest.UpdateDTO> updateDtos) {
+        System.out.println(updateDtos);
+
+        // [CartRequest.UpdateDTO(cartId=13, buyQty=81), CartRequest.UpdateDTO(cartId=7, buyQty=20)]
+        // DB에서 내 장바구니 내역 조회 (4건)
+        // 13과 7이 아닌 애들은 삭제
+        // 13과 7은 업데이트
+
+        return "ok";
+    }
+
 
     //장바구니에 담기
-    @PostMapping("/cart")
-    public String save(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-
-        Boolean cart = cartService.save(sessionUser.getId(), productId, buyQty);
-
-        if (cart == true) {
-            return "redirect:/cart-form";
-        } else {
-            return "/err/duplication";
-        }
-
-    }
+//    @PostMapping("/cart")
+//    public String save(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty) {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//
+//        Boolean cart = cartService.save(sessionUser.getId(), productId, buyQty);
+//
+//        if (cart == true) {
+//            return "redirect:/cart-form";
+//        } else {
+//            return "/err/duplication";
+//        }
+//
+//    }
 
     //장바구니 폼
     @GetMapping("/cart-form")
