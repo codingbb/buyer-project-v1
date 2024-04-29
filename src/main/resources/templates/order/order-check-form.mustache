@@ -96,6 +96,21 @@
 </div>
 <br><br><br><br>
 
+<script>
+    $(document).ready(function () {
+        // 폼 제출 이벤트를 가로채기
+        $('form').on('submit', function (e) {
+            // 결제 방식이 선택되었는지 확인
+            var paymentSelected = $('input[name="payment"]:checked').length > 0;
+
+            // 결제 방식이 선택되지 않았다면
+            if (!paymentSelected) {
+                e.preventDefault(); // 폼 제출 막기
+                alert('결제 방식을 선택해주세요.'); // 사용자에게 알림
+            }
+        });
+    });
+</script>
 
 
 {{> layout/footer}}

@@ -25,7 +25,7 @@ public class OrderController {
 
     //내가 주문한 상품 상세보기 폼 //주문한 내역이 나와야함
     @GetMapping("/order-detail")
-    public String orderDetail(HttpServletRequest request, @RequestParam Integer orderId) {
+    public String detail(HttpServletRequest request, @RequestParam Integer orderId) {
         OrderResponse.DetailDTO orderDetail = orderService.orderDetail(orderId);
 //        System.out.println("주문상세보기 DTO : " + orderDetail);
         request.setAttribute("orderDetail", orderDetail);
@@ -47,7 +47,7 @@ public class OrderController {
 
     // 주문하기 = 구매하기
     @PostMapping("/order")
-    public String order(OrderRequest.OrderDTO requestDTO) {
+    public String save(OrderRequest.OrderDTO requestDTO) {
 //        System.out.println("구매하기 : " + requestDTO);
         orderService.saveOrder(requestDTO);
 
