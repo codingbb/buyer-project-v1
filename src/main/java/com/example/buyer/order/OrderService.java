@@ -32,19 +32,19 @@ public class OrderService {
 
 
     //주문폼 orderViewForm //responseDTO인가 ? ? ?
-    public OrderRequest.OrderCheckDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
+    public OrderResponse.SaveFormDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
         User user = orderRepo.findByUserId(sessionUserId);
         Product product = orderRepo.findByProductId(productId);
 
         Integer sum = buyQty * product.getPrice();
 
-        return new OrderRequest.OrderCheckDTO(user, product, buyQty, sum);
+        return new OrderResponse.SaveFormDTO(user, product, buyQty, sum);
     }
 
 
     //구매하기 로직
     @Transactional
-    public void saveOrder(OrderRequest.OrderDTO requestDTO) {
+    public void saveOrder(OrderRequest.SaveDTO requestDTO) {
         orderRepo.save(requestDTO);
         orderRepo.updateQty(requestDTO);
 

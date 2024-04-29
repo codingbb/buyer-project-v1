@@ -61,7 +61,7 @@ public class OrderRepository {
 
 
     //구매하기 !!
-    public void save(OrderRequest.OrderDTO requestDTO) {
+    public void save(OrderRequest.SaveDTO requestDTO) {
         String q = """
                 insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at) values (?, ?, ?, ?, ?, ?, now());
                 """;
@@ -77,7 +77,7 @@ public class OrderRepository {
     }
 
     //상품을 구매하면 재고 차감
-    public void updateQty(OrderRequest.OrderDTO requestDTO) {
+    public void updateQty(OrderRequest.SaveDTO requestDTO) {
         String q = """
                 update product_tb set qty = qty - ? where id = ?
                 """;

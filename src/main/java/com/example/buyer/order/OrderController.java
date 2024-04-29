@@ -47,7 +47,7 @@ public class OrderController {
 
     // 주문하기 = 구매하기
     @PostMapping("/order-save")
-    public String save(OrderRequest.OrderDTO requestDTO) {
+    public String save(OrderRequest.SaveDTO requestDTO) {
 //        System.out.println("구매하기 : " + requestDTO);
         orderService.saveOrder(requestDTO);
 
@@ -61,7 +61,7 @@ public class OrderController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         //dto 사용해서 한 번에 다 담기
-        OrderRequest.OrderCheckDTO orderCheck = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
+        OrderResponse.SaveFormDTO orderCheck = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
 //        System.out.println("주문폼 dto 값 확인 : " + orderCheck);
         request.setAttribute("order", orderCheck);
 
