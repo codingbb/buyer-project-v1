@@ -14,7 +14,7 @@ public class ProductResponse {
         private Integer price;
         private String imgFileName;
 
-        @Builder
+
         public ListDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
@@ -33,7 +33,6 @@ public class ProductResponse {
         private Integer qty;
         private String imgFileName;
 
-        @Builder
         public DetailDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
@@ -51,7 +50,6 @@ public class ProductResponse {
         private Integer price;
         private String imgFileName;
 
-        @Builder
         public MainDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();
@@ -70,7 +68,6 @@ public class ProductResponse {
         private Integer qty;
         private Integer indexNumb;
 
-        @Builder
         public BuyListDTO(Product product) {
             this.id = product.getId();
             this.name = product.getName();

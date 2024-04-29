@@ -46,7 +46,7 @@ public class OrderController {
     }
 
     // 주문하기 = 구매하기
-    @PostMapping("/order")
+    @PostMapping("/order-save")
     public String save(OrderRequest.OrderDTO requestDTO) {
 //        System.out.println("구매하기 : " + requestDTO);
         orderService.saveOrder(requestDTO);
@@ -56,7 +56,7 @@ public class OrderController {
     }
 
     // 주문하려는 물품 확인 폼
-    @GetMapping("/order-check-form")
+    @GetMapping("/order-save-form")
     public String orderCheckForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
@@ -65,7 +65,7 @@ public class OrderController {
 //        System.out.println("주문폼 dto 값 확인 : " + orderCheck);
         request.setAttribute("order", orderCheck);
 
-        return "/order/order-check-form";
+        return "/order/order-save-form";
     }
 
     // 주문폼 //Get 요청이겠지?? POST? GET? POST? GET?

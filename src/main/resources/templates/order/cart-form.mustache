@@ -97,7 +97,7 @@
                     <span style="padding-right: 40px;">합계 (원)</span>
                     <strong class="sum">0</strong>
                 </div>
-                <form action="/order-check-form" method="get">
+                <form action="/order-save-form" method="get">
                     {{#cartList}}
                         <input type="hidden" name="productId" value="{{productId}}">
                         <input type="hidden" name="buyQty" value="{{buyQty}}">
@@ -150,7 +150,7 @@
             var checkedItems = document.querySelectorAll('input[name="itemCheck"]:checked');
             var form = document.createElement('form');
             form.method = "GET";
-            form.action = "/order-check-form";
+            form.action = "/order-save-form";
 
             checkedItems.forEach(function(item) {
                 var productIdInput = document.createElement('input');

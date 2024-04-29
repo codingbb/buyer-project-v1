@@ -69,8 +69,6 @@ public class OrderRequest {
         //order에 넣는 부분
         private Integer sum; //합계
         private String status;
-
-
     }
 
 }
