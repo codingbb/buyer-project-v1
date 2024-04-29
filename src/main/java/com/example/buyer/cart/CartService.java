@@ -24,24 +24,24 @@ public class CartService {
 
     //장바구니 삭제하기
     @Transactional
-    public void deleteById(Integer id) {
+    public void cartDelete(Integer id) {
         cartRepo.deleteById(id);
 
     }
 
 
     //장바구니 목록 보기
-    public List<CartResponse.CartDTO> findAll(Integer sessionUserId) {
+    public List<CartResponse.CartDTO> getCartList(Integer sessionUserId) {
         List<CartResponse.CartDTO> cartList = cartRepo.findAll();
 
         //유저별로 장바구니 관리
-        List<CartResponse.CartDTO> userCartList = cartList.stream().filter(cart ->
+        List<CartResponse.CartDTO> cartWithUser = cartList.stream().filter(cart ->
                 sessionUserId != null && sessionUserId.equals(cart.getUserId()))
                         .collect(Collectors.toList());
 
 //        System.out.println("카트리스트~ " + cartList);
 
-        return userCartList;
+        return cartWithUser;
     }
 
 
