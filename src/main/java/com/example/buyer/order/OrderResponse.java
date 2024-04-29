@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class OrderResponse {
 
     @Data
-    public static class BuyFormDTO {
+    public static class DetailDTO {
         private Integer id;     //order id
         private Integer buyQty;     //주문한 수량
         private Integer productId;     //상품 id
@@ -32,7 +32,7 @@ public class OrderResponse {
         private Boolean isNotCancel = true;
 
         @Builder
-        public BuyFormDTO(Integer id, Integer buyQty, Integer productId, Integer sum, String payment, Integer userId, String status, String uName, String address, String phone, String pName, Integer price) {
+        public DetailDTO(Integer id, Integer buyQty, Integer productId, Integer sum, String payment, Integer userId, String status, String uName, String address, String phone, String pName, Integer price) {
             this.id = id;
             this.buyQty = buyQty;
             this.productId = productId;

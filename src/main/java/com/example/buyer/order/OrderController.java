@@ -26,7 +26,7 @@ public class OrderController {
     //내가 주문한 상품 상세보기 폼 //주문한 내역이 나와야함
     @GetMapping("/order-detail")
     public String orderDetail(HttpServletRequest request, @RequestParam Integer orderId) {
-        OrderResponse.BuyFormDTO orderDetail = orderService.getOrderDetail(orderId);
+        OrderResponse.DetailDTO orderDetail = orderService.orderDetail(orderId);
 //        System.out.println("바이폼!! : " + orderDetail);
         //buyForm
         request.setAttribute("orderDetail", orderDetail);
@@ -39,7 +39,7 @@ public class OrderController {
     public String orderList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        List<OrderResponse.ListDTO> orderList = orderService.getOrderList(sessionUser.getId());
+        List<OrderResponse.ListDTO> orderList = orderService.orderList(sessionUser.getId());
         System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 
@@ -48,7 +48,7 @@ public class OrderController {
 
     // 주문하기 = 구매하기
     @PostMapping("/order")
-    public String order(OrderRequest.DTO requestDTO) {
+    public String order(OrderRequest.OrderDTO requestDTO) {
 //        System.out.println(requestDTO);
         orderService.saveOrder(requestDTO);
 
@@ -58,11 +58,11 @@ public class OrderController {
 
     // 주문하려는 물품 확인 폼
     @GetMapping("/order-check-form")
-    public String orderForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
+    public String orderCheckForm(@RequestParam("productId") Integer productId, @RequestParam("buyQty") Integer buyQty, HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         //dto 사용해서 한 번에 다 담기
-        OrderRequest.ViewDTO orderCheck = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
+        OrderRequest.OrderCheckDTO orderCheck = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
 //        System.out.println("주문폼 dto 값 확인 : " + orderCheck);
         request.setAttribute("order", orderCheck);
 

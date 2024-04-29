@@ -61,7 +61,7 @@ public class OrderRepository {
 
 
     //구매하기 !!
-    public void save(OrderRequest.DTO requestDTO) {
+    public void save(OrderRequest.OrderDTO requestDTO) {
         String q = """
                 insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at) values (?, ?, ?, ?, ?, ?, now());
                 """;
@@ -77,7 +77,7 @@ public class OrderRepository {
     }
 
     //상품을 구매하면 재고 차감
-    public void updateQty(OrderRequest.DTO requestDTO) {
+    public void updateQty(OrderRequest.OrderDTO requestDTO) {
         String q = """
                 update product_tb set qty = qty - ? where id = ?
                 """;
@@ -88,7 +88,7 @@ public class OrderRepository {
     }
 
     //주문내역 폼 (order-detail-form) 조회용
-    public OrderResponse.BuyFormDTO findUserProductByOrderId(Integer orderId) {
+    public OrderResponse.DetailDTO findUserProductByOrderId(Integer orderId) {
         String q = """
                 select o.id, o.buy_qty, o.product_id, o.sum, o.payment, o.user_id, o.status, 
                 u.name uName, u.address, u.phone, p.name pName, p.price 
@@ -115,7 +115,7 @@ public class OrderRepository {
         String pName = (String) row[10];
         Integer price = (Integer) row[11];
 
-        OrderResponse.BuyFormDTO buyForm = OrderResponse.BuyFormDTO.builder()
+        OrderResponse.DetailDTO detail = OrderResponse.DetailDTO.builder()
                 .id(id)
                 .buyQty(buyQty)
                 .productId(productId)
@@ -130,7 +130,7 @@ public class OrderRepository {
                 .price(price)
                 .build();
 
-        return buyForm;
+        return detail;
 
     }
 

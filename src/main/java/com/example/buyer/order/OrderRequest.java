@@ -7,15 +7,6 @@ import lombok.Data;
 
 public class OrderRequest {
 
-    //되나?
-    @Data
-    public static class productAndQtyDTO {
-        private Integer productId;
-        private Integer buyQty;
-
-    }
-
-
     //주문 취소용 정보 받는 dto
     @Data
     public static class CancelDTO {
@@ -27,7 +18,7 @@ public class OrderRequest {
 
     //주문 폼 DTO
     @Data
-    public static class ViewDTO {
+    public static class OrderCheckDTO {
         // 유저 정보
         private Integer userId;
         private String name;    //유저 성명
@@ -47,7 +38,7 @@ public class OrderRequest {
         private Integer cartId;
 
         @Builder
-        public ViewDTO(User user, Product product, Integer buyQty, Integer sum) {
+        public OrderCheckDTO(User user, Product product, Integer buyQty, Integer sum) {
             this.userId = user.getId();
             this.name = user.getName();
             this.address = user.getAddress();
@@ -61,7 +52,7 @@ public class OrderRequest {
     }
 
     @Data
-    public static class DTO {
+    public static class OrderDTO {
         // user 들고 오는 부분
         private Integer userId;
         private String name;

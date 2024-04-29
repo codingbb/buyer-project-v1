@@ -22,8 +22,8 @@ public class OrderService {
 
 
     //내 주문 내역 폼 order-detail-form
-    public OrderResponse.BuyFormDTO getOrderDetail(Integer orderId) {
-        OrderResponse.BuyFormDTO orderDetail = orderRepo.findUserProductByOrderId(orderId);
+    public OrderResponse.DetailDTO orderDetail(Integer orderId) {
+        OrderResponse.DetailDTO orderDetail = orderRepo.findUserProductByOrderId(orderId);
 
 //        System.out.println("dto 값 확인용!! " + orderDetail);
 
@@ -32,26 +32,26 @@ public class OrderService {
 
 
     //주문폼 orderViewForm //responseDTO인가 ? ? ?
-    public OrderRequest.ViewDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
+    public OrderRequest.OrderCheckDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
         User user = orderRepo.findByUserId(sessionUserId);
         Product product = orderRepo.findByProductId(productId);
 
         Integer sum = buyQty * product.getPrice();
 
-        return new OrderRequest.ViewDTO(user, product, buyQty, sum);
+        return new OrderRequest.OrderCheckDTO(user, product, buyQty, sum);
     }
 
 
     //구매하기 로직
     @Transactional
-    public void saveOrder(OrderRequest.DTO requestDTO) {
+    public void saveOrder(OrderRequest.OrderDTO requestDTO) {
         orderRepo.save(requestDTO);
         orderRepo.updateQty(requestDTO);
 
     }
 
     //내 구매목록 로직
-    public List<OrderResponse.ListDTO> getOrderList(Integer sessionUserId) {
+    public List<OrderResponse.ListDTO> orderList(Integer sessionUserId) {
         List<OrderResponse.ListDTO> orderList = orderRepo.findAllOrder();
 
         //ssar 유저가 구매한 내역만 나와야함
