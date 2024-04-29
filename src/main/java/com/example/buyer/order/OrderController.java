@@ -1,9 +1,6 @@
 package com.example.buyer.order;
 
-import com.example.buyer.product.Product;
-import com.example.buyer.product.ProductResponse;
 import com.example.buyer.user.User;
-import com.example.buyer.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,29 +20,30 @@ public class OrderController {
     public String orderCancel(OrderRequest.CancelDTO requestDTO) {
 //        System.out.println("주문 취소 DTO : " + requestDTO);
         orderService.orderCancel(requestDTO);
-        return "redirect:/buy-list";
+        return "redirect:/order-list";
     }
 
     //내가 주문한 상품 확인 폼 //주문한 내역이 나와야함
-    @GetMapping("/my-buy-form")
+    @GetMapping("/order-detail")
     public String myBuyForm(HttpServletRequest request, @RequestParam Integer orderId) {
-        OrderResponse.BuyFormDTO findBuyForm = orderService.findBuyForm(orderId);
-        System.out.println("바이폼!! : " + findBuyForm);
-        request.setAttribute("buyForm", findBuyForm);
-        return "/order/my-buy-form";
+        OrderResponse.BuyFormDTO orderDetail = orderService.getOrderDetail(orderId);
+//        System.out.println("바이폼!! : " + findBuyForm);
+        //buyForm
+        request.setAttribute("orderDetail", orderDetail);
+        return "/order/order-detail-form";
     }
 
 
     //내 구매목록
-    @GetMapping("/buy-list")
+    @GetMapping("/order-list")
     public String buyList(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<OrderResponse.ListDTO> orderList = orderService.findListAll(sessionUser.getId());
-//        System.out.println("오더 리스트 여기! : " + orderList);
+        System.out.println("오더 리스트 여기! : " + orderList);
         request.setAttribute("orderList", orderList);
 
-        return "/order/buy-list";
+        return "/order/order-list";
     }
 
     // 주문하기 = 구매하기
@@ -54,7 +52,7 @@ public class OrderController {
 //        System.out.println(requestDTO);
         orderService.saveOrder(requestDTO);
 
-        return "redirect:/buy-list";
+        return "redirect:/order-list";
 
     }
 

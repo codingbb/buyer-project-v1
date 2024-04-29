@@ -17,17 +17,17 @@ public class OrderService {
     //주문 취소하기!!
     @Transactional
     public void orderCancel(OrderRequest.CancelDTO requestDTO) {
-        orderRepo.orderCancel(requestDTO);
+        orderRepo.findByIdAndUpdateStatus(requestDTO);
     }
 
 
-    //내 주문 내역 폼 my-buy-form
-    public OrderResponse.BuyFormDTO findBuyForm(Integer orderId) {
-        OrderResponse.BuyFormDTO findBuyForm = orderRepo.findBuyForm(orderId);
+    //내 주문 내역 폼 order-detail-form
+    public OrderResponse.BuyFormDTO getOrderDetail(Integer orderId) {
+        OrderResponse.BuyFormDTO orderDetail = orderRepo.findUserProductByOrderId(orderId);
 
 //        System.out.println("dto 값 확인용!! " + findBuyForm);
 
-        return findBuyForm;
+        return orderDetail;
     }
 
 

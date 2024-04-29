@@ -41,7 +41,7 @@
                 <td>{{createdAt}}</td>
                 <td>
                     <div class="new-create-button">
-                        <form action="/my-buy-form">
+                        <form action="/order-detail" method="get" >
                             <input type="hidden" name="orderId" value="{{id}}">
                             <button type="submit" class="{{buttonColor}}">{{status}}</button>
                         </form>

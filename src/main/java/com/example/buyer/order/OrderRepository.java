@@ -19,7 +19,7 @@ public class OrderRepository {
     private final EntityManager em;
 
     //주문 취소 쿼리문 join 쓰고싶어서 씀 (product_tb 수량 변경, order_tb 상태값 변경)
-    public void orderCancel(OrderRequest.CancelDTO requestDTO) {
+    public void findByIdAndUpdateStatus(OrderRequest.CancelDTO requestDTO) {
         String q = """
                 update order_tb o 
                 inner join product_tb p on o.product_id = p.id 
@@ -87,8 +87,8 @@ public class OrderRepository {
         query.executeUpdate();
     }
 
-    //주문내역 폼 (my-buy-form) 조회용
-    public OrderResponse.BuyFormDTO findBuyForm(Integer orderId) {
+    //주문내역 폼 (order-detail-form) 조회용
+    public OrderResponse.BuyFormDTO findUserProductByOrderId(Integer orderId) {
         String q = """
                 select o.id, o.buy_qty, o.product_id, o.sum, o.payment, o.user_id, o.status, 
                 u.name uName, u.address, u.phone, p.name pName, p.price 
@@ -136,7 +136,7 @@ public class OrderRepository {
 
 
     // TODO: 돌아가는지 테스트 좀 하고 써라! 까먹지마~!!
-    //buy-list 조회용
+    //order-list 조회용
     public List<OrderResponse.ListDTO> findAllList() {
         String q = """
                 select o.id, o.user_id, o.buy_qty, o.payment, o.sum, o.status, o.created_at, p.name 
