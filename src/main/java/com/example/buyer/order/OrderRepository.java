@@ -115,7 +115,7 @@ public class OrderRepository {
         String pName = (String) row[10];
         Integer price = (Integer) row[11];
 
-        OrderResponse.DetailDTO detail = OrderResponse.DetailDTO.builder()
+        OrderResponse.DetailDTO detailDTO = OrderResponse.DetailDTO.builder()
                 .id(id)
                 .buyQty(buyQty)
                 .productId(productId)
@@ -130,7 +130,7 @@ public class OrderRepository {
                 .price(price)
                 .build();
 
-        return detail;
+        return detailDTO;
 
     }
 

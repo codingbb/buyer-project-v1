@@ -27,8 +27,7 @@ public class OrderController {
     @GetMapping("/order-detail")
     public String orderDetail(HttpServletRequest request, @RequestParam Integer orderId) {
         OrderResponse.DetailDTO orderDetail = orderService.orderDetail(orderId);
-//        System.out.println("바이폼!! : " + orderDetail);
-        //buyForm
+//        System.out.println("주문상세보기 DTO : " + orderDetail);
         request.setAttribute("orderDetail", orderDetail);
         return "/order/order-detail-form";
     }
@@ -40,7 +39,7 @@ public class OrderController {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         List<OrderResponse.ListDTO> orderList = orderService.orderList(sessionUser.getId());
-        System.out.println("오더 리스트 여기! : " + orderList);
+//        System.out.println("오더 리스트 : " + orderList);
         request.setAttribute("orderList", orderList);
 
         return "/order/order-list";
@@ -49,7 +48,7 @@ public class OrderController {
     // 주문하기 = 구매하기
     @PostMapping("/order")
     public String order(OrderRequest.OrderDTO requestDTO) {
-//        System.out.println(requestDTO);
+//        System.out.println("구매하기 : " + requestDTO);
         orderService.saveOrder(requestDTO);
 
         return "redirect:/order-list";

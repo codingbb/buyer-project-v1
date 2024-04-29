@@ -21,9 +21,9 @@ public class ProductController {
     //상품목록보기
     @GetMapping("/product-list")
     public String productList(HttpServletRequest request) {
-        List<ProductResponse.ListDTO> productList = productService.findAllList();
+        List<ProductResponse.ListDTO> productList = productService.productList();
         request.setAttribute("productList", productList);
-        System.out.println(productList);
+//        System.out.println(productList);
         return "/product/product-list";
     }
 
@@ -31,7 +31,7 @@ public class ProductController {
     //상품 상세보기
     @GetMapping("/product/{id}")
     public String detail(@PathVariable Integer id, HttpServletRequest request) {
-        ProductResponse.DetailDTO product = productService.findByIdDetail(id);
+        ProductResponse.DetailDTO product = productService.productDetail(id);
         request.setAttribute("product", product);
         return "/product/detail";
     }
@@ -40,7 +40,7 @@ public class ProductController {
     //메인 페이지
     @GetMapping("/")
     public String main(HttpServletRequest request) {
-        List<ProductResponse.MainDTO> productList = productService.findAllMain();
+        List<ProductResponse.MainDTO> productList = productService.main();
         request.setAttribute("productList", productList);
 //        System.out.println(productList);
         return "/index";
