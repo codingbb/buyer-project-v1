@@ -29,19 +29,19 @@ public class UserController {
 
     //회원가입
     @PostMapping("/join")
-    public String userJoin(UserRequest.JoinDTO requestDTO) {
+    public String join(UserRequest.JoinDTO requestDTO) {
         userService.save(requestDTO);
         return "redirect:/";
     }
 
     @GetMapping("/user-join-form")
-    public String userJoinForm() {
+    public String joinForm() {
 
         return "/user/user-join-form";
     }
 
     @GetMapping("/user-update-form")
-    public String userUpdateForm() {
+    public String updateForm() {
 
         return "/user/user-update-form";
     }

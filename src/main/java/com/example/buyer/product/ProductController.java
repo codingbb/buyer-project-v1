@@ -16,8 +16,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    //TODO: main에 수량은 필요 없는데 자꾸 값이 나온다. dto에서 제외하자
-
     //상품목록보기
     @GetMapping("/product-list")
     public String productList(HttpServletRequest request) {

@@ -49,7 +49,6 @@ public class ProductResponse {
         private Integer id;
         private String name;
         private Integer price;
-        private Integer qty;
         private String imgFileName;
 
         @Builder
@@ -57,7 +56,6 @@ public class ProductResponse {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
-            this.qty = product.getQty();
             this.imgFileName = product.getImgFileName();
         }
 
