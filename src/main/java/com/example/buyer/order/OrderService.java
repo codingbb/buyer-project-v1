@@ -39,6 +39,15 @@ public class OrderService {
 
     }
 
+    //주문폼
+//    OrderResponse.SaveFormDTO 디테일주문폼(Integer sessionUserId) {
+//        Product product = orderRepo.findByProductId(productId);
+//
+//        Integer sum = buyQty * product.getPrice();
+//
+//        return new OrderRequest.ViewDTO(user, product, buyQty, sum);
+//    }
+
 
     //주문 취소하기!!
     @Transactional
@@ -69,12 +78,12 @@ public class OrderService {
 
 
     //구매하기 로직
-    @Transactional
-    public void saveOrder(OrderRequest.SaveDTO requestDTO) {
-        orderRepo.save(requestDTO);
-        orderRepo.updateQty(requestDTO);
-
-    }
+//    @Transactional
+//    public void saveOrder(OrderRequest.SaveDTO requestDTO) {
+//        orderRepo.save(requestDTO);
+//        orderRepo.updateQty(requestDTO);
+//
+//    }
 
     //내 구매목록 로직
     public List<OrderResponse.ListDTO> orderList(Integer sessionUserId) {

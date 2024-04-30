@@ -103,32 +103,32 @@ public class OrderRepository {
 
 
     //구매하기 !!
-    public void save(OrderRequest.SaveDTO requestDTO) {
-        String q = """
-                insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at) 
-                values (?, ?, ?, ?, ?, ?, now())
-                """;
-        Query query = em.createNativeQuery(q);
-        query.setParameter(1, requestDTO.getUserId());
-        query.setParameter(2, requestDTO.getProductId());
-        query.setParameter(3, requestDTO.getBuyQty());
-        query.setParameter(4, requestDTO.getSum());
-        query.setParameter(5, requestDTO.getStatus());
-        query.setParameter(6, requestDTO.getPayment());
-
-        query.executeUpdate();
-    }
+//    public void save(OrderRequest.SaveDTO requestDTO) {
+//        String q = """
+//                insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at)
+//                values (?, ?, ?, ?, ?, ?, now())
+//                """;
+//        Query query = em.createNativeQuery(q);
+//        query.setParameter(1, requestDTO.getUserId());
+//        query.setParameter(2, requestDTO.getProductId());
+//        query.setParameter(3, requestDTO.getBuyQty());
+//        query.setParameter(4, requestDTO.getSum());
+//        query.setParameter(5, requestDTO.getStatus());
+//        query.setParameter(6, requestDTO.getPayment());
+//
+//        query.executeUpdate();
+//    }
 
     //상품을 구매하면 재고 차감
-    public void updateQty(OrderRequest.SaveDTO requestDTO) {
-        String q = """
-                update product_tb set qty = qty - ? where id = ?
-                """;
-        Query query = em.createNativeQuery(q);
-        query.setParameter(1, requestDTO.getBuyQty());
-        query.setParameter(2, requestDTO.getProductId());
-        query.executeUpdate();
-    }
+//    public void updateQty(OrderRequest.SaveDTO requestDTO) {
+//        String q = """
+//                update product_tb set qty = qty - ? where id = ?
+//                """;
+//        Query query = em.createNativeQuery(q);
+//        query.setParameter(1, requestDTO.getBuyQty());
+//        query.setParameter(2, requestDTO.getProductId());
+//        query.executeUpdate();
+//    }
 
     //주문내역 폼 (order-detail-form) 조회용
     public OrderResponse.DetailDTO findUserProductByOrderId(Integer orderId) {

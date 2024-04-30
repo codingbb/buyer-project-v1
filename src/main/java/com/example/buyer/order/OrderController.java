@@ -46,14 +46,14 @@ public class OrderController {
     }
 
     // 주문하기 = 구매하기
-    @PostMapping("/order-save")
-    public String save(OrderRequest.SaveDTO requestDTO) {
-//        System.out.println("구매하기 : " + requestDTO);
-        orderService.saveOrder(requestDTO);
-
-        return "redirect:/order-list";
-
-    }
+//    @PostMapping("/order-save")
+//    public String save(OrderRequest.SaveDTO requestDTO) {
+////        System.out.println("구매하기 : " + requestDTO);
+//        orderService.saveOrder(requestDTO);
+//
+//        return "redirect:/order-list";
+//
+//    }
 
     // 주문하려는 물품 구매 폼
     @GetMapping("/order-save-form")
@@ -61,19 +61,32 @@ public class OrderController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = orderService.유저조회(sessionUser.getId());
 
-        //지금 화면에 뿌려질게 화면에 뿌려질 유저 정보와 장바구니에 담은 상품 정보를 받아와서 뿌려야함!!!@
-        List<OrderResponse.SaveFormDTO> cartList = orderService.내장바구니내역(sessionUser.getId());
-        System.out.println("내장바구니 컨트롤러 확인용 : " + cartList);
+//        if () {
+            //지금 화면에 뿌려질게 화면에 뿌려질 유저 정보와 장바구니에 담은 상품 정보를 받아와서 뿌려야함!!!@
+            List<OrderResponse.SaveFormDTO> cartList = orderService.내장바구니내역(sessionUser.getId());
+//            System.out.println("내장바구니 컨트롤러 확인용 : " + cartList);
 
-        //totalSum 계산용...
-        Integer totalSum = cartList.stream().mapToInt(value -> value.getSum()).sum();
+            //totalSum 계산용...
+            Integer totalSum = cartList.stream().mapToInt(value -> value.getSum()).sum();
 
-        // 모델에(request) 담기 .... 한 번에 담고싶다  !!
-        request.setAttribute("cartList", cartList);
-        request.setAttribute("user", user);
-        request.setAttribute("totalSum", totalSum);
+            // 모델에(request) 담기 .... 한 번에 담고싶다  !!
+            request.setAttribute("cartList", cartList);
+            request.setAttribute("totalSum", totalSum);
+            request.setAttribute("user", user);
 
-        return "/order/order-save-form";
+            return "/order/order-save-form";
+
+//        } else {
+//            //디테일에서 구매하기 누르면 여기서 담겨야하지않을가
+//            OrderResponse.SaveFormDTO order = orderService.디테일주문폼(sessionUser.getId());
+//            System.out.println("주문폼 dto 값 확인 : " + order);
+//            request.setAttribute("order", order);
+//
+//            return "/order/order-save-form";
+//        }
+
+
+
     }
 
     // 주문폼 //Get 요청이겠지?? POST? GET? POST? GET?
