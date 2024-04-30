@@ -17,17 +17,22 @@ public class CartRepository {
 
     //DB에서 내 장바구니 내역 모두 조회
     public List<Cart> findAllCart(Integer sessionUserId) {
-        String q = """
-                select * from cart_tb where user_id = ?
-                """;
 
-        Query query = em.createNativeQuery(q, Cart.class);
-        query.setParameter(1, sessionUserId);
-        List<Cart> cartList = query.getResultList();
+        try {
+            String q = """
+                    select * from cart_tb where user_id = ?
+                    """;
+
+            Query query = em.createNativeQuery(q, Cart.class);
+            query.setParameter(1, sessionUserId);
+            List<Cart> cartList = query.getResultList();
 //        System.out.println("내 장바구니 내역 모두 조회 : " + cartList);
+//        System.out.println("true로 들어옴! : " + cartList);
+            return cartList;
 
-        System.out.println("true로 들어옴! : " + cartList);
-        return cartList;
+        } catch (NoResultException e) {
+            return null;
+        }
 
     }
 
@@ -120,12 +125,13 @@ public class CartRepository {
     //장바구니 담기(추가)
     public void save(Integer userId, Integer productId, Integer buyQty) {
         String q = """
-                insert into cart_tb (user_id, product_id, buy_qty, created_at) values (?, ?, ?, now())
+                insert into cart_tb (user_id, product_id, buy_qty, status, created_at) values (?, ?, ?, ?, now())
                 """;
         Query query = em.createNativeQuery(q);
         query.setParameter(1, userId);
         query.setParameter(2, productId);
         query.setParameter(3, buyQty);
+        query.setParameter(4, false);
         query.executeUpdate();
 
     }

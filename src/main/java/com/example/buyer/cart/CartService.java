@@ -28,13 +28,18 @@ public class CartService {
     @Transactional
     public void checkCartUpdate(List<CartRequest.UpdateDTO> updateDTOs, Integer sessionUserId) {
 
-        List<Cart> cartList = cartRepo.findAllCart(sessionUserId);
-
-        //status = true로 들어옴!! 안된 애들 삭제하려고
-
         //장바구니에서 체크한 애들은 수량 업데이트
         cartRepo.updateCheckProduct(updateDTOs, sessionUserId);
-        //TODO: 장바구니에서 체크 안 된 애들은 삭제
+
+        List<Cart> cartList = cartRepo.findAllCart(sessionUserId);
+//        System.out.println("!!!!!! " + cartList);
+
+        for (Cart cart : cartList) {
+            if (cart.getStatus() == false) {
+                //장바구니에서 체크 안 된 애들은 삭제
+                cartRepo.deleteById(cart.getId());
+            }
+        }
 
     }
 

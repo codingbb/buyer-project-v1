@@ -30,7 +30,6 @@ public class CartController {
         System.out.println("장바구니에서 체크한 값 : " + updateDTOs);
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-
         cartService.checkCartUpdate(updateDTOs, sessionUser.getId());
         // [CartRequest.UpdateDTO(cartId=13, buyQty=81), CartRequest.UpdateDTO(cartId=7, buyQty=20)]
         // 여기에 status 추가해보았음 .. true, false
