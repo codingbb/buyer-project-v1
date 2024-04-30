@@ -15,6 +15,18 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepo;
 
+    @Transactional
+    public void 장바구니에선택된값만넣어야함(List<CartRequest.UpdateDTO> updateDTOs, Integer sessionUserId) {
+        //장바구니 품목 전체 조회
+        cartRepo.findAllCart(sessionUserId);
+        //장바구니에서 체크한 애들은 수량 업데이트
+        cartRepo.updateCheckProduct(updateDTOs, sessionUserId);
+        //TODO: 장바구니에서 체크 안 된 애들은 삭제 -> 일단 보류
+
+
+    }
+
+
     //장바구니 수량 변경
     @Transactional
     public void updateQty(CartRequest.UpdateDTO requestDTO) {

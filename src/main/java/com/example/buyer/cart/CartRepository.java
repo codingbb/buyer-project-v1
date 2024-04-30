@@ -15,6 +15,39 @@ import java.util.List;
 public class CartRepository {
     private final EntityManager em;
 
+    //DB에서 내 장바구니 내역 모두 조회
+    public List<Cart> findAllCart(Integer sessionUserId) {
+        String q = """
+                select * from cart_tb where user_id = ?
+                """;
+
+        Query query = em.createNativeQuery(q, Cart.class);
+        query.setParameter(1, sessionUserId);
+        List<Cart> cartList = query.getResultList();
+        System.out.println("내 장바구니 내역 모두 조회 : " + cartList);
+        return cartList;
+
+    }
+
+    //장바구니에서 수량을 변경한 후 산다고 체크한 물건은 dto에서 받아온 수량으로 Update
+    public void updateCheckProduct(List<CartRequest.UpdateDTO> updateDTOs, Integer sessionUserId) {
+
+        for (CartRequest.UpdateDTO updateDTO : updateDTOs) {
+            String q = """
+                update cart_tb set buy_qty = ? where id = ? and user_id = ?
+                """;
+
+            Query query = em.createNativeQuery(q);
+            query.setParameter(1, updateDTO.getBuyQty());
+            query.setParameter(2, updateDTO.getCartId());
+            query.setParameter(3, sessionUserId);
+            query.executeUpdate();
+
+        }
+    }
+
+
+
     //장바구니 수량 변경
     public void updateQty(CartRequest.UpdateDTO requestDTO) {
         String q = """

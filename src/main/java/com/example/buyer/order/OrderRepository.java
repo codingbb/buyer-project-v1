@@ -18,6 +18,23 @@ import java.util.List;
 public class OrderRepository {
     private final EntityManager em;
 
+
+    // 장바구니에 있는 내역 구매 폼에 담아오기
+    public void f() {
+        String q = """
+                select c.id, c.buy_qty, p.name, p.price 
+                from cart_tb c 
+                inner join product_tb p 
+                on c.product_id = p.id 
+                where c.user_id = ?;
+                """;
+        Query query = em.createNativeQuery(q);
+
+
+    }
+
+
+
     //주문 취소 쿼리문 join 쓰고싶어서 씀 (product_tb 수량 변경, order_tb 상태값 변경)
     public void findByIdAndUpdateStatus(OrderRequest.CancelDTO requestDTO) {
         String q = """
@@ -55,7 +72,7 @@ public class OrderRepository {
         Query query = em.createNativeQuery(q, Product.class);
         query.setParameter(1, id);
         Product product = (Product) query.getSingleResult();
-        System.out.println("여기서 지금 고정값 밖에 조회못함. 선택한 값으로 안들어오고 있음 : " + product);
+
         return product;
     }
 
@@ -135,7 +152,7 @@ public class OrderRepository {
     }
 
 
-    // TODO: 돌아가는지 테스트 좀 하고 써라! 까먹지마~!!
+    // TODO: 돌아가는지 테스트 좀 하고 써라!
     //order-list 조회용
     public List<OrderResponse.ListDTO> findAllOrder() {
         String q = """
