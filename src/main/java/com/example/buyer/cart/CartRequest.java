@@ -8,6 +8,8 @@ public class CartRequest {
     public static class UpdateDTO {
         private Integer cartId; //cartId
         private Integer buyQty; //수량 변경
+        private Boolean status;
+
     }
 
 }

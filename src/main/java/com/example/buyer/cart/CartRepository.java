@@ -24,7 +24,9 @@ public class CartRepository {
         Query query = em.createNativeQuery(q, Cart.class);
         query.setParameter(1, sessionUserId);
         List<Cart> cartList = query.getResultList();
-        System.out.println("내 장바구니 내역 모두 조회 : " + cartList);
+//        System.out.println("내 장바구니 내역 모두 조회 : " + cartList);
+
+        System.out.println("true로 들어옴! : " + cartList);
         return cartList;
 
     }
@@ -34,13 +36,14 @@ public class CartRepository {
 
         for (CartRequest.UpdateDTO updateDTO : updateDTOs) {
             String q = """
-                update cart_tb set buy_qty = ? where id = ? and user_id = ?
+                update cart_tb set buy_qty = ?, status = ? where id = ? and user_id = ?
                 """;
 
             Query query = em.createNativeQuery(q);
             query.setParameter(1, updateDTO.getBuyQty());
-            query.setParameter(2, updateDTO.getCartId());
-            query.setParameter(3, sessionUserId);
+            query.setParameter(2, updateDTO.getStatus());
+            query.setParameter(3, updateDTO.getCartId());
+            query.setParameter(4, sessionUserId);
             query.executeUpdate();
 
         }

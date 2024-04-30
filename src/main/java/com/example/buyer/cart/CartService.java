@@ -15,14 +15,26 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepo;
 
-    @Transactional
-    public void 장바구니에선택된값만넣어야함(List<CartRequest.UpdateDTO> updateDTOs, Integer sessionUserId) {
+    public List<Cart> cartAll(Integer sessionUserId) {
         //장바구니 품목 전체 조회
-        cartRepo.findAllCart(sessionUserId);
+        List<Cart> cartList = cartRepo.findAllCart(sessionUserId);
+        System.out.println("여기 Boolean값 있나 : " + cartList);
+
+        return cartList;
+    }
+
+
+    //장바구니에서 체크된 값만 넣어야함
+    @Transactional
+    public void checkCartUpdate(List<CartRequest.UpdateDTO> updateDTOs, Integer sessionUserId) {
+
+        List<Cart> cartList = cartRepo.findAllCart(sessionUserId);
+
+        //status = true로 들어옴!! 안된 애들 삭제하려고
+
         //장바구니에서 체크한 애들은 수량 업데이트
         cartRepo.updateCheckProduct(updateDTOs, sessionUserId);
-        //TODO: 장바구니에서 체크 안 된 애들은 삭제 -> 일단 보류
-
+        //TODO: 장바구니에서 체크 안 된 애들은 삭제
 
     }
 

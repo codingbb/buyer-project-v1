@@ -20,7 +20,7 @@ public class OrderRepository {
 
 
     // 장바구니에 있는 내역 구매 폼에 담아오기
-    public void f() {
+    public List<OrderResponse.SaveFormDTO> 내장바구니내역(Integer sessionUserId) {
         String q = """
                 select c.id, c.buy_qty, p.name, p.price 
                 from cart_tb c 
@@ -28,8 +28,33 @@ public class OrderRepository {
                 on c.product_id = p.id 
                 where c.user_id = ?;
                 """;
-        Query query = em.createNativeQuery(q);
 
+        Query query = em.createNativeQuery(q);
+        query.setParameter(1, sessionUserId);
+
+        List<Object[]> rows = query.getResultList();
+        List<OrderResponse.SaveFormDTO> orderList = new ArrayList<>();
+
+        for (Object[] row : rows) {
+            //listDTO
+            Integer id = (Integer) row[0];
+            Integer buyQty = (Integer) row[1];
+            String pName = (String) row[2];
+            Integer price = (Integer) row[3];
+
+            OrderResponse.SaveFormDTO listDTO = OrderResponse.SaveFormDTO.builder()
+                    .id(id)
+                    .buyQty(buyQty)
+                    .pName(pName)
+                    .price(price)
+                    .build();
+
+            orderList.add(listDTO);
+        }
+
+//        System.out.println("db값 확인용..." + orderList);
+
+        return orderList;
 
     }
 

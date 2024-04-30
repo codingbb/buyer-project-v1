@@ -57,13 +57,13 @@ public class OrderController {
 
     // 주문하려는 물품 구매 폼
     @GetMapping("/order-save-form")
-    public String orderCheckForm(@RequestParam Integer productId, @RequestParam Integer buyQty, HttpServletRequest request) {
+    public String orderCheckForm() {
         User sessionUser = (User) session.getAttribute("sessionUser");
         //지금 화면에 뿌려질게 화면에 뿌려질 유저 정보와 장바구니에 담은 상품 정보를 받아와서 뿌려야함!!!@
-        // orderService.내장바구니내역(sessionUser.getId());
-
-        OrderResponse.SaveFormDTO order = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
-        request.setAttribute("order", order);
+        List<OrderResponse.SaveFormDTO> orderList = orderService.내장바구니내역(sessionUser.getId());
+        System.out.println("허어어어 : " + orderList);
+//        OrderResponse.SaveFormDTO order = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
+//        request.setAttribute("order", order);
 
         // 모델에(request) 담기
 

@@ -22,6 +22,9 @@ public class Cart {
     //구매 수량
     private Integer buyQty;
 
+    //장바구니에 체크한 것만 가져오게
+    private Boolean status;     //true 체크 함, false - 체크안함
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

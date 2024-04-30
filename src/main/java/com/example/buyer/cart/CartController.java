@@ -27,13 +27,15 @@ public class CartController {
     //장바구니 업데이트 + 딜리트 .. 장바구니에서 구매하기 눌렀을 때
     @PostMapping("/cart/update")
     public @ResponseBody String update(@RequestBody List<CartRequest.UpdateDTO> updateDTOs) {
-        System.out.println(updateDTOs);
+        System.out.println("장바구니에서 체크한 값 : " + updateDTOs);
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        cartService.장바구니에선택된값만넣어야함(updateDTOs, sessionUser.getId());
+
+        cartService.checkCartUpdate(updateDTOs, sessionUser.getId());
         // [CartRequest.UpdateDTO(cartId=13, buyQty=81), CartRequest.UpdateDTO(cartId=7, buyQty=20)]
+        // 여기에 status 추가해보았음 .. true, false
         // DB에서 내 장바구니 내역 조회 (4건)
-        // 13과 7이 아닌 애들은 삭제 -> 근데 체크 안 한 애들은 장바구니에 남아있어야하는거 아닐까요? 안 샀으니까...
+        // 13과 7이 아닌 애들은 삭제 ->
         // 13과 7은 업데이트
 
         return "redirect:/order-save-form";

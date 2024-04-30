@@ -14,8 +14,17 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderRepository orderRepo;
 
+    public List<OrderResponse.SaveFormDTO> 내장바구니내역(Integer sessionUserId) {
+        List<OrderResponse.SaveFormDTO> orderList = orderRepo.내장바구니내역(sessionUserId);
 
+        System.out.println("ghgh: : " + orderList);
+        return orderList;
 
+//        Integer sum = buyQty * product.getPrice();
+//
+//        return new OrderResponse.SaveFormDTO(user, product, buyQty, sum);
+
+    }
 
 
     //주문 취소하기!!
@@ -36,14 +45,14 @@ public class OrderService {
 
 
     //주문폼 orderViewForm //responseDTO인가 ? ? ?
-    public OrderResponse.SaveFormDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
-        User user = orderRepo.findByUserId(sessionUserId);
-        Product product = orderRepo.findByProductId(productId);
-
-        Integer sum = buyQty * product.getPrice();
-
-        return new OrderResponse.SaveFormDTO(user, product, buyQty, sum);
-    }
+//    public OrderResponse.SaveFormDTO orderCheck(Integer sessionUserId, Integer productId, Integer buyQty) {
+//        User user = orderRepo.findByUserId(sessionUserId);
+//        Product product = orderRepo.findByProductId(productId);
+//
+//        Integer sum = buyQty * product.getPrice();
+//
+//        return new OrderResponse.SaveFormDTO(user, product, buyQty, sum);
+//    }
 
 
     //구매하기 로직
@@ -72,4 +81,6 @@ public class OrderService {
 
         return findUserOrderList;
     }
+
+
 }
