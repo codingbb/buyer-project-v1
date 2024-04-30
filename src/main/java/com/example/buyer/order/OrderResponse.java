@@ -17,13 +17,35 @@ public class OrderResponse {
         private String pName;   //상품명
         private Integer price;  //상품 가격
 
+        private Integer sum;
+
+//        private Integer totalSum;
+//        private UserDTO userDTO;
+
+
         @Builder
-        public SaveFormDTO(Integer id, Integer buyQty, String pName, Integer price) {
+        public SaveFormDTO(Integer id, Integer buyQty, String pName, Integer price, Integer sum) {
             this.id = id;
             this.buyQty = buyQty;
             this.pName = pName;
             this.price = price;
+            this.sum = sum;
         }
+
+//        @Data
+//        public static class UserDTO {
+//            private String uName;   //성명
+//            private String address; //주소
+//            private String phone;
+//
+//            public UserDTO(User user) {
+//                this.uName = user.getName();
+//                this.address = user.getAddress();
+//                this.phone = user.getPhone();
+//            }
+//        }
+
+
     }
 
 

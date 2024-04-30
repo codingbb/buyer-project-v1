@@ -14,15 +14,28 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderRepository orderRepo;
 
+    //유저 조회용...
+    public User 유저조회(Integer sessionUserId) {
+        User user = orderRepo.findByUserId(sessionUserId);
+        return user;
+    }
+
+    //내 장바구니 내역에 있는 상품들을 구매폼에 불러오기
     public List<OrderResponse.SaveFormDTO> 내장바구니내역(Integer sessionUserId) {
-        List<OrderResponse.SaveFormDTO> orderList = orderRepo.내장바구니내역(sessionUserId);
+        List<OrderResponse.SaveFormDTO> cartList = orderRepo.내장바구니내역(sessionUserId);
+//        System.out.println("내 장바구니 내역 : " + cartList);
 
-        System.out.println("ghgh: : " + orderList);
-        return orderList;
+        Integer sum;    //물건 각각 합계
+//        Integer totalSum = 0;   //토탈 총액
+        for (OrderResponse.SaveFormDTO cart : cartList) {
+            sum = cart.getPrice() * cart.getBuyQty();
+            cart.setSum(sum);
 
-//        Integer sum = buyQty * product.getPrice();
-//
-//        return new OrderResponse.SaveFormDTO(user, product, buyQty, sum);
+//            totalSum = totalSum + sum;
+//            cart.setTotalSum(totalSum);
+        }
+
+        return cartList;
 
     }
 

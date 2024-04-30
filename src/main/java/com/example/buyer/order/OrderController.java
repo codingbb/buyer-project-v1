@@ -57,16 +57,21 @@ public class OrderController {
 
     // 주문하려는 물품 구매 폼
     @GetMapping("/order-save-form")
-    public String orderCheckForm() {
+    public String orderCheckForm(HttpServletRequest request) {
         User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = orderService.유저조회(sessionUser.getId());
+
         //지금 화면에 뿌려질게 화면에 뿌려질 유저 정보와 장바구니에 담은 상품 정보를 받아와서 뿌려야함!!!@
-        List<OrderResponse.SaveFormDTO> orderList = orderService.내장바구니내역(sessionUser.getId());
-        System.out.println("허어어어 : " + orderList);
-//        OrderResponse.SaveFormDTO order = orderService.orderCheck(sessionUser.getId(), productId, buyQty);
-//        request.setAttribute("order", order);
+        List<OrderResponse.SaveFormDTO> cartList = orderService.내장바구니내역(sessionUser.getId());
+        System.out.println("내장바구니 컨트롤러 확인용 : " + cartList);
 
-        // 모델에(request) 담기
+        //totalSum 계산용...
+        Integer totalSum = cartList.stream().mapToInt(value -> value.getSum()).sum();
 
+        // 모델에(request) 담기 .... 한 번에 담고싶다  !!
+        request.setAttribute("cartList", cartList);
+        request.setAttribute("user", user);
+        request.setAttribute("totalSum", totalSum);
 
         return "/order/order-save-form";
     }

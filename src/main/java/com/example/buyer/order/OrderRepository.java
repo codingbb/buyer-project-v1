@@ -26,7 +26,7 @@ public class OrderRepository {
                 from cart_tb c 
                 inner join product_tb p 
                 on c.product_id = p.id 
-                where c.user_id = ?;
+                where c.user_id = ?
                 """;
 
         Query query = em.createNativeQuery(q);
@@ -65,7 +65,7 @@ public class OrderRepository {
         String q = """
                 update order_tb o 
                 inner join product_tb p on o.product_id = p.id 
-                set o.status = ?, p.qty = qty + ? where o.id = ?;
+                set o.status = ?, p.qty = qty + ? where o.id = ?
                 """;
 
         Query query = em.createNativeQuery(q);
@@ -105,7 +105,8 @@ public class OrderRepository {
     //구매하기 !!
     public void save(OrderRequest.SaveDTO requestDTO) {
         String q = """
-                insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at) values (?, ?, ?, ?, ?, ?, now());
+                insert into order_tb (user_id, product_id, buy_qty, sum, status, payment, created_at) 
+                values (?, ?, ?, ?, ?, ?, now())
                 """;
         Query query = em.createNativeQuery(q);
         query.setParameter(1, requestDTO.getUserId());
@@ -137,7 +138,7 @@ public class OrderRepository {
                 from order_tb o 
                 inner join user_tb u on o.user_id = u.id 
                 inner join product_tb p on o.product_id = p.id 
-                where o.id = ?;
+                where o.id = ?
                 """;
 
         Query query = em.createNativeQuery(q);
@@ -184,7 +185,7 @@ public class OrderRepository {
                 select o.id, o.user_id, o.buy_qty, o.payment, o.sum, o.status, o.created_at, p.name 
                 from order_tb o 
                 inner join product_tb p on o.product_id = p.id 
-                order by o.id desc;
+                order by o.id desc
                 """;
         Query query = em.createNativeQuery(q);
 
